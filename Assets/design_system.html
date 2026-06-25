@@ -1,549 +1,1195 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Design System - Cunto</title>
-    
-    <!-- References to existing assets -->
-    <script src="Referencias/genlabs.aura.build/assets/resource_3fa48481346f.js"></script>
-    <script src="Referencias/genlabs.aura.build/assets/iconify_654a1ef798a3.js"></script>
-    <link href="Referencias/genlabs.aura.build/assets/css2_d532a689d235.css" rel="stylesheet"/>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design System — José Cunto Neto</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet" />
 
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #fafafa;
-            color: #18181b; /* zinc-900 */
-        }
-        
-        /* Glass effects */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.70);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+        /* ═══════════════════════════════════════════════════
+           TOKENS — espelho exato do style.css do projeto
+        ═══════════════════════════════════════════════════ */
+        :root {
+            --ink:        #18181b;
+            --ink-mid:    #71717a;
+            --ink-light:  #a1a1aa;
+            --ink-xlight: #d4d4d8;
+            --bg:         #ffffff;
+
+            --expo: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Border Gradients */
-        [style*="--border-gradient"]::before {
-            content: "";
+        /* ═══════════════════════════════════════════════════
+           BASE
+        ═══════════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ═══════════════════════════════════════════════════
+           DS SHELL — nav + layout
+        ═══════════════════════════════════════════════════ */
+        .ds-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--ink);
+            color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            height: 3.5rem;
+            font-size: .6875rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+        .ds-nav__brand { font-weight: 600; }
+        .ds-nav__links { display: flex; gap: 2.5rem; }
+        .ds-nav__links a { color: var(--ink-light); transition: color .2s; }
+        .ds-nav__links a:hover { color: var(--bg); }
+
+        .ds-main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 6rem 3rem 12rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8rem;
+        }
+
+        /* ═══════════════════════════════════════════════════
+           DS SECTION HEADER
+        ═══════════════════════════════════════════════════ */
+        .ds-section-label {
+            display: block;
+            font-size: .5rem;
+            font-weight: 500;
+            letter-spacing: .36em;
+            text-transform: uppercase;
+            color: var(--ink-mid);
+            margin-bottom: 1rem;
+        }
+        .ds-section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -.04em;
+            line-height: 1;
+            color: var(--ink);
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--ink-xlight);
+        }
+
+        /* ═══════════════════════════════════════════════════
+           DS CARD
+        ═══════════════════════════════════════════════════ */
+        .ds-card {
+            background: var(--bg);
+            border: 1px solid var(--ink-xlight);
+            padding: 2rem;
+        }
+        .ds-card-title {
+            font-size: .5rem;
+            font-weight: 500;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+            color: var(--ink-mid);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--ink-xlight);
+        }
+
+        .ds-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--ink-xlight); }
+        .ds-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--ink-xlight); }
+        .ds-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--ink-xlight); }
+        .ds-grid-2 > *, .ds-grid-3 > *, .ds-grid-4 > * { background: var(--bg); }
+
+        .ds-row { display: flex; flex-direction: column; gap: 1px; background: var(--ink-xlight); }
+        .ds-row > * { background: var(--bg); }
+
+        /* ═══════════════════════════════════════════════════
+           1. PALETA
+        ═══════════════════════════════════════════════════ */
+        .color-chip {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+        .color-chip__swatch {
+            width: 100%;
+            height: 5rem;
+            margin-bottom: 1.5rem;
+        }
+        .color-chip__name {
+            font-size: .75rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: .25rem;
+        }
+        .color-chip__var {
+            font-size: .6875rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--ink-mid);
+            margin-bottom: .25rem;
+        }
+        .color-chip__hex {
+            font-size: .6875rem;
+            color: var(--ink-light);
+        }
+        .color-chip__usage {
+            margin-top: 1rem;
+            font-size: .625rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--ink-light);
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════════════
+           2. TIPOGRAFIA
+        ═══════════════════════════════════════════════════ */
+        .type-row {
+            display: flex;
+            align-items: baseline;
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .type-row + .type-row { border-top: 1px solid var(--ink-xlight); }
+        .type-row__meta {
+            flex-shrink: 0;
+            width: 14rem;
+        }
+        .type-row__label {
+            font-size: .5rem;
+            font-weight: 500;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--ink-mid);
+            display: block;
+            margin-bottom: .375rem;
+        }
+        .type-row__spec {
+            font-size: .5625rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--ink-light);
+            line-height: 1.8;
+        }
+        .type-row__sample { flex: 1; }
+
+        /* ═══════════════════════════════════════════════════
+           3. ESPAÇAMENTOS
+        ═══════════════════════════════════════════════════ */
+        .space-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+        }
+        .space-row + .space-row { border-top: 1px solid var(--ink-xlight); }
+        .space-row__bar {
+            background: var(--ink);
+            height: 1rem;
+            flex-shrink: 0;
+        }
+        .space-row__label {
+            font-size: .5rem;
+            font-weight: 500;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--ink-mid);
+            width: 8rem;
+            flex-shrink: 0;
+        }
+        .space-row__value {
+            font-size: .5625rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--ink-light);
+        }
+
+        /* ═══════════════════════════════════════════════════
+           4. EASING
+        ═══════════════════════════════════════════════════ */
+        .easing-demo {
+            padding: 2rem;
+        }
+        .easing-demo + .easing-demo { border-top: 1px solid var(--ink-xlight); }
+        .easing-demo__track {
+            position: relative;
+            height: 2px;
+            background: var(--ink-xlight);
+            margin: 1.5rem 0;
+        }
+        .easing-demo__dot {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--ink);
+            border-radius: 50%;
+        }
+        .easing-demo:hover .easing-demo__dot {
+            left: calc(100% - 10px);
+        }
+        .easing-1 .easing-demo__dot { transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .easing-2 .easing-demo__dot { transition: left .4s ease; }
+        .easing-3 .easing-demo__dot { transition: left .5s ease; }
+
+        /* ═══════════════════════════════════════════════════
+           5. COMPONENTES — replicados do projeto
+        ═══════════════════════════════════════════════════ */
+
+        /* — Nav — */
+        .preview-nav {
+            position: relative;
+            width: 100%;
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            background: rgba(255,255,255,.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--ink-xlight);
+        }
+        .preview-nav__logo {
+            display: block;
+            height: 1.5rem;
+            width: 6rem;
+            background: var(--ink-xlight);
+        }
+        .preview-nav__list {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .preview-nav__link {
+            font-size: .6875rem;
+            font-weight: 500;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--ink);
+            transition: opacity .3s var(--expo);
+        }
+        .preview-nav__link:hover { opacity: .5; }
+
+        /* — CTA Button — */
+        .preview-cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .875rem;
+            font-size: .6875rem;
+            font-weight: 500;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--ink-mid);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border: 1px solid var(--ink-xlight);
+            border-radius: 9999px;
+            position: relative;
+            overflow: hidden;
+            transition: color .42s var(--expo), border-color .42s var(--expo);
+            cursor: pointer;
+        }
+        .preview-cta-link::before {
+            content: '';
             position: absolute;
             inset: 0;
-            padding: 1px;
-            border-radius: var(--border-radius-before, inherit);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            background: var(--border-gradient);
+            background: var(--ink);
+            opacity: 0;
+            transition: opacity .44s var(--expo);
+        }
+        .preview-cta-link span { position: relative; z-index: 1; }
+        .preview-cta-link:hover { color: var(--bg); border-color: var(--ink); }
+        .preview-cta-link:hover::before { opacity: 1; }
+        .preview-cta-arrow { display: inline-block; position: relative; z-index: 1; transition: transform .4s var(--expo); }
+        .preview-cta-link:hover .preview-cta-arrow { transform: translateY(4px); }
+
+        /* — Burger — */
+        .preview-burger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0 .25rem;
+        }
+        .preview-burger span {
+            display: block;
+            height: 1px;
+            background: var(--ink);
+            transition: transform .4s var(--expo), opacity .3s var(--expo);
+        }
+        .preview-burger:hover span:nth-child(1) { transform: translateY(2px); }
+        .preview-burger:hover span:nth-child(3) { transform: translateY(-2px); }
+
+        /* — Scroll indicator — */
+        .preview-scroll {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+        }
+        .preview-scroll__label {
+            font-size: .5rem;
+            font-weight: 500;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--ink-light);
+        }
+        .preview-scroll__line {
+            width: 1px;
+            height: 4rem;
+            background: linear-gradient(to bottom, var(--ink), transparent);
+        }
+
+        /* — Image figure — */
+        .preview-figure {
+            position: relative;
+            overflow: hidden;
+            background: var(--ink-xlight);
+        }
+        .preview-figure img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .6s var(--expo);
+        }
+        .preview-figure__overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--ink);
+            opacity: 0;
             pointer-events: none;
+            transition: opacity .6s var(--expo);
+        }
+        .preview-figure:hover img { transform: scale(1.04); }
+        .preview-figure:hover .preview-figure__overlay { opacity: .15; }
+
+        /* — Chapter label — */
+        .preview-ch {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+        }
+        .preview-ch__num {
+            font-size: .5rem;
+            font-weight: 500;
+            letter-spacing: .36em;
+            text-transform: uppercase;
+            color: var(--ink-mid);
+        }
+        .preview-ch__tag {
+            font-size: .5625rem;
+            font-weight: 500;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: var(--ink-mid);
         }
 
-        /* Animations */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        /* — Mobile menu — */
+        .preview-mobile-menu {
+            background: var(--ink);
+            padding: 4rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2.5rem;
         }
-        .animate-float { animation: float 4s ease-in-out infinite; }
-        
-        @keyframes fade-in-up {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .preview-mobile-link {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -.04em;
+            color: var(--bg);
+            line-height: 1;
+            transition: opacity .3s var(--expo);
         }
-        .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
+        .preview-mobile-link:hover { opacity: .4; }
+        .preview-mobile-meta {
+            font-size: .5625rem;
+            font-weight: 400;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--ink-light);
+            margin-top: 1rem;
+        }
 
-        /* Typography scale utilities based on requested scale */
-        .ds-h1 { font-size: 4.5rem; line-height: 1; letter-spacing: -0.05em; font-weight: 700; }
-        .ds-h2 { font-size: 3.75rem; line-height: 1.1; letter-spacing: -0.025em; font-weight: 700; }
-        .ds-h3 { font-size: 3rem; line-height: 1.15; letter-spacing: -0.025em; font-weight: 600; }
-        .ds-h4 { font-size: 2.25rem; line-height: 1.2; letter-spacing: -0.025em; font-weight: 600; }
-        .ds-h5 { font-size: 1.875rem; line-height: 1.25; letter-spacing: -0.025em; font-weight: 600; }
-        .ds-h6 { font-size: 1.5rem; line-height: 1.3; font-weight: 500; }
-        .ds-body-lg { font-size: 1.125rem; line-height: 1.75; font-weight: 400; }
-        .ds-body { font-size: 1rem; line-height: 1.5; font-weight: 400; }
-        .ds-body-sm { font-size: 0.875rem; line-height: 1.5; font-weight: 400; }
-        .ds-caption { font-size: 0.75rem; line-height: 1.2; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+        /* ═══════════════════════════════════════════════════
+           6. Z-INDEX / BREAKPOINTS — tabelas
+        ═══════════════════════════════════════════════════ */
+        .ds-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .6875rem;
+        }
+        .ds-table th {
+            text-align: left;
+            font-size: .5rem;
+            font-weight: 500;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: var(--ink-mid);
+            padding: .875rem 1.5rem;
+            border-bottom: 1px solid var(--ink-xlight);
+        }
+        .ds-table td {
+            padding: .875rem 1.5rem;
+            border-bottom: 1px solid var(--ink-xlight);
+            color: var(--ink);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+        .ds-table td:first-child { color: var(--ink-mid); }
+        .ds-table tr:last-child td { border-bottom: none; }
+
+        /* ═══════════════════════════════════════════════════
+           UTILITIES
+        ═══════════════════════════════════════════════════ */
+        .ds-note {
+            font-size: .625rem;
+            letter-spacing: .06em;
+            color: var(--ink-light);
+            margin-top: .75rem;
+            line-height: 1.6;
+        }
+        .mono {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: .6875rem;
+            color: var(--ink-mid);
+        }
     </style>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#18181b',
-                        secondary: '#52525b',
-                        accent: '#3b82f6',
-                        neutral: '#f4f4f5',
-                        feedback: '#10b981',
-                        decorative: '#8b5cf6'
-                    },
-                    backgroundImage: {
-                        'glow-gradient': 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(255,255,255,0) 70%)',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-zinc-50 text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white relative overflow-x-hidden">
+<body>
 
-    <!-- Decorative Background Glow -->
-    <div class="fixed top-[-20%] left-[-10%] w-[60%] h-[60%] bg-glow-gradient rounded-full blur-3xl pointer-events-none z-0"></div>
-    <div class="fixed bottom-[-20%] right-[-10%] w-[60%] h-[60%] radial-gradient(circle, rgba(139,92,246,0.1) 0%, rgba(255,255,255,0) 70%) rounded-full blur-3xl pointer-events-none z-0"></div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-panel border-b-0 px-6 py-4 mx-4 mt-4 rounded-2xl shadow-sm transition-all duration-300">
-        <div class="max-w-[1400px] mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-white font-bold tracking-tighter text-xl">
-                    DS
-                </div>
-                <span class="text-xl font-semibold tracking-tight text-zinc-900">Design System</span>
-            </div>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-zinc-600">
-                <a href="#hero" class="hover:text-zinc-900 transition-colors">Hero</a>
-                <a href="#typography" class="hover:text-zinc-900 transition-colors">Tipografia</a>
-                <a href="#colors" class="hover:text-zinc-900 transition-colors">Cores</a>
-                <a href="#layouts" class="hover:text-zinc-900 transition-colors">Layouts</a>
-                <a href="#components" class="hover:text-zinc-900 transition-colors">Componentes</a>
-            </div>
-            <div>
-                <a href="#" class="px-5 py-2.5 rounded-full bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800 transition-all hover:shadow-lg hover:-translate-y-0.5 inline-block">Baixar Assets</a>
-            </div>
+    <!-- DS Navigation -->
+    <nav class="ds-nav">
+        <span class="ds-nav__brand">Cunto — Design System</span>
+        <div class="ds-nav__links">
+            <a href="#cores">Cores</a>
+            <a href="#tipografia">Tipografia</a>
+            <a href="#espacamentos">Espaçamentos</a>
+            <a href="#animacoes">Animações</a>
+            <a href="#componentes">Componentes</a>
+            <a href="#estrutura">Estrutura</a>
         </div>
     </nav>
 
-    <!-- Main Container -->
-    <main class="relative z-10 w-full pt-32 pb-24 px-6 max-w-[1400px] mx-auto flex flex-col gap-32">
+    <main class="ds-main">
 
-        <!-- 1. Hero Section -->
-        <section id="hero" class="min-h-[80vh] flex flex-col items-center justify-center text-center relative rounded-[3rem] glass-panel overflow-hidden p-12 border border-white shadow-xl opacity-0 animate-fade-in-up">
-            <!-- Inner grid pattern -->
-            <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 40px 40px;"></div>
-            
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium text-zinc-600 mb-8 animate-float">
-                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                V2.0 Lançamento Oficial
+        <!-- ══════════════════════════════════════════════
+             INTRO
+        ══════════════════════════════════════════════ -->
+        <section>
+            <span class="ds-section-label">Documentação</span>
+            <div style="display:flex; align-items:baseline; justify-content:space-between; padding-bottom:2rem; border-bottom:1px solid var(--ink-xlight); margin-bottom:2rem;">
+                <h1 style="font-size:clamp(3rem,6vw,5rem); font-weight:700; letter-spacing:-.055em; line-height:.88; color:var(--ink);">José Cunto Neto<br/>Design System</h1>
+                <div style="text-align:right;">
+                    <p class="mono">Versão 2.0</p>
+                    <p class="ds-note">Atualizado em 2026-06-24</p>
+                    <p class="ds-note">Fonte: index.html + style.css</p>
+                </div>
             </div>
-            
-            <h1 class="ds-h1 max-w-5xl mb-8 relative z-10">
-                Criatividade encontra 
-                <br />
-                <!-- Transparent Lettering Effect requested by user -->
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-zinc-400 via-zinc-800 to-zinc-400 animate-pulse">
-                    Precisão e Elegância
-                </span>
-            </h1>
-            
-            <p class="ds-body-lg text-zinc-500 max-w-2xl mb-12">
-                Um design system focado no minimalismo branco, trazendo o estilo 'glassmorphism' com tipografia refinada e interações sutis que impressionam em cada detalhe.
+            <p style="font-size:.6875rem; font-weight:400; letter-spacing:.06em; color:var(--ink-mid); line-height:1.8; max-width:56rem;">
+                Este documento é a fonte de verdade da identidade visual do portfólio fotográfico de José Cunto Neto. Toda nova seção, página ou componente deve seguir rigorosamente os tokens, padrões tipográficos e comportamentos descritos aqui. Nenhum estilo deve ser inventado — somente os padrões já consolidados no projeto devem ser utilizados.
             </p>
-            
-            <div class="flex gap-4 items-center">
-                <a href="#components" class="px-8 py-4 rounded-full bg-zinc-900 text-white font-medium hover:scale-105 transition-transform shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)]">
-                    Explorar Componentes
-                </a>
-                <a href="#typography" class="px-8 py-4 rounded-full glass-card font-medium text-zinc-700 hover:bg-white transition-colors">
-                    Ver Documentação
-                </a>
+        </section>
+
+
+        <!-- ══════════════════════════════════════════════
+             1. PALETA DE CORES
+        ══════════════════════════════════════════════ -->
+        <section id="cores">
+            <span class="ds-section-label">01</span>
+            <h2 class="ds-section-title">Paleta de Cores</h2>
+
+            <div class="ds-grid-3" style="border:1px solid var(--ink-xlight);">
+
+                <div class="color-chip">
+                    <div class="color-chip__swatch" style="background:#18181b;"></div>
+                    <span class="color-chip__name">Ink</span>
+                    <span class="color-chip__var">--ink</span>
+                    <span class="color-chip__hex">#18181b · rgb(24, 24, 27)</span>
+                    <p class="color-chip__usage">Texto principal, fundos do menu mobile, overlays, ícones activos, bordas hover do CTA</p>
+                </div>
+
+                <div class="color-chip">
+                    <div class="color-chip__swatch" style="background:#71717a;"></div>
+                    <span class="color-chip__name">Ink Mid</span>
+                    <span class="color-chip__var">--ink-mid</span>
+                    <span class="color-chip__hex">#71717a · rgb(113, 113, 122)</span>
+                    <p class="color-chip__usage">Links de navegação, texto CTA, eyebrows, labels de capítulo (num + tag), texto de meta</p>
+                </div>
+
+                <div class="color-chip">
+                    <div class="color-chip__swatch" style="background:#a1a1aa;"></div>
+                    <span class="color-chip__name">Ink Light</span>
+                    <span class="color-chip__var">--ink-light</span>
+                    <span class="color-chip__hex">#a1a1aa · rgb(161, 161, 170)</span>
+                    <p class="color-chip__usage">Scroll label, hyear, pf-header__meta, mobile nav meta, nav hover opacity target</p>
+                </div>
+
+                <div class="color-chip">
+                    <div class="color-chip__swatch" style="background:#d4d4d8; border:1px solid #ebebeb;"></div>
+                    <span class="color-chip__name">Ink Xlight</span>
+                    <span class="color-chip__var">--ink-xlight</span>
+                    <span class="color-chip__hex">#d4d4d8 · rgb(212, 212, 216)</span>
+                    <p class="color-chip__usage">Bordas do CTA em repouso, linhas divisórias, bordas de elementos sutis</p>
+                </div>
+
+                <div class="color-chip">
+                    <div class="color-chip__swatch" style="background:#ffffff; border:1px solid #ebebeb;"></div>
+                    <span class="color-chip__name">Background</span>
+                    <span class="color-chip__var">--bg</span>
+                    <span class="color-chip__hex">#ffffff · rgb(255, 255, 255)</span>
+                    <p class="color-chip__usage">Fundo da página, texto sobre fundos escuros (menu mobile, CTA hover), fill do nav scrolled</p>
+                </div>
+
+                <div class="color-chip" style="background:var(--ink);">
+                    <div class="color-chip__swatch" style="background:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.2);"></div>
+                    <span class="color-chip__name" style="color:var(--bg);">Nav Blur</span>
+                    <span class="color-chip__var" style="color:var(--ink-light);">rgba(255,255,255,.85)</span>
+                    <span class="color-chip__hex" style="color:var(--ink-light);">+ backdrop-filter: blur(12px)</span>
+                    <p class="color-chip__usage" style="color:var(--ink-light);">Fundo da navegação no estado .scrolled — nunca usar sem backdrop-filter</p>
+                </div>
+
+            </div>
+
+            <div class="ds-note" style="margin-top:1.5rem;">
+                O projeto utiliza escala monocromática estrita. Nenhuma cor de acento (azul, verde, vermelho) existe no sistema. Toda cor deve ser derivada das 5 variáveis acima.
             </div>
         </section>
 
-        <!-- 2. Typography Section -->
-        <section id="typography" class="opacity-0 animate-fade-in-up delay-100 scroll-mt-32">
-            <div class="mb-12">
-                <h2 class="ds-h2 mb-4">Tipografia</h2>
-                <p class="ds-body-lg text-zinc-500">Nossa estrutura textual. Construída em Inter para máxima legibilidade.</p>
+
+        <!-- ══════════════════════════════════════════════
+             2. TIPOGRAFIA
+        ══════════════════════════════════════════════ -->
+        <section id="tipografia">
+            <span class="ds-section-label">02</span>
+            <h2 class="ds-section-title">Tipografia</h2>
+
+            <!-- Config -->
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Família & Carregamento</p>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2rem;">
+                    <div>
+                        <p style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:.5rem;">Família</p>
+                        <p class="mono">'Inter', sans-serif</p>
+                    </div>
+                    <div>
+                        <p style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:.5rem;">Pesos</p>
+                        <p class="mono">300 · 400 · 500 · 600 · 700<br/>italic 300</p>
+                    </div>
+                    <div>
+                        <p style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:.5rem;">Carregamento</p>
+                        <p class="mono">Google Fonts CDN<br/>display=swap</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <div class="lg:col-span-4 glass-card p-8 rounded-3xl h-fit">
-                    <h3 class="ds-h5 mb-6">Configurações</h3>
-                    <ul class="space-y-4 ds-body text-zinc-600">
-                        <li class="flex justify-between border-b border-zinc-200 pb-2">
-                            <span class="font-medium text-zinc-900">Primary Family</span>
-                            <span>'Inter', sans-serif</span>
-                        </li>
-                        <li class="flex justify-between border-b border-zinc-200 pb-2">
-                            <span class="font-medium text-zinc-900">Fallback</span>
-                            <span>system-ui, -apple-system</span>
-                        </li>
-                        <li class="flex justify-between border-b border-zinc-200 pb-2">
-                            <span class="font-medium text-zinc-900">Loading</span>
-                            <span>Google Fonts CDN / Swap</span>
-                        </li>
-                        <li class="flex justify-between pb-2">
-                            <span class="font-medium text-zinc-900">Weights</span>
-                            <span>300, 400, 500, 600, 700</span>
-                        </li>
+            <!-- Scale -->
+            <div class="ds-row" style="border:1px solid var(--ink-xlight);">
+
+                <div class="type-row">
+                    <div class="type-row__meta">
+                        <span class="type-row__label">Hero — Sobrenome</span>
+                        <span class="type-row__spec">clamp(6rem, 16vw, 18rem)<br/>weight 700<br/>tracking -.06em<br/>line-height .82</span>
+                    </div>
+                    <div class="type-row__sample" style="font-size:clamp(3rem, 8vw, 6rem); font-weight:700; letter-spacing:-.06em; line-height:.82; color:var(--ink);">Cunto</div>
+                </div>
+
+                <div class="type-row">
+                    <div class="type-row__meta">
+                        <span class="type-row__label">Hero — Primeiro Nome</span>
+                        <span class="type-row__spec">clamp(5rem, 13vw, 15rem)<br/>weight 300 italic<br/>tracking -.04em<br/>line-height 1</span>
+                    </div>
+                    <div class="type-row__sample" style="font-size:clamp(2.5rem, 6.5vw, 5rem); font-weight:300; font-style:italic; letter-spacing:-.04em; color:var(--ink);">José</div>
+                </div>
+
+                <div class="type-row">
+                    <div class="type-row__meta">
+                        <span class="type-row__label">Portfolio Title (h2)</span>
+                        <span class="type-row__spec">clamp(4.5rem, 11vw, 14rem)<br/>weight 700<br/>tracking -.055em<br/>line-height .88</span>
+                    </div>
+                    <div class="type-row__sample" style="font-size:clamp(3rem, 7vw, 6rem); font-weight:700; letter-spacing:-.055em; line-height:.88; color:var(--ink);">Trabalhos</div>
+                </div>
+
+                <div class="type-row">
+                    <div class="type-row__meta">
+                        <span class="type-row__label">Mobile Nav Links</span>
+                        <span class="type-row__spec">clamp(2.5rem, 12vw, 5rem)<br/>weight 700<br/>tracking -.04em<br/>line-height 1.05</span>
+                    </div>
+                    <div class="type-row__sample" style="font-size:clamp(1.75rem, 5vw, 3rem); font-weight:700; letter-spacing:-.04em; line-height:1.05; color:var(--ink);">Portfólio</div>
+                </div>
+
+                <div class="type-row">
+                    <div class="type-row__meta">
+                        <span class="type-row__label">Nav Links / CTA / Meta</span>
+                        <span class="type-row__spec">.6875rem (11px)<br/>weight 400–500<br/>tracking .12–.14em<br/>uppercase</span>
+                    </div>
+                    <div class="type-row__sample">
+                        <p style="font-size:.6875rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); margin-bottom:.5rem;">Ver Portfólio</p>
+                        <p style="font-size:.6875rem; font-weight:400; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-mid);">José Cunto Neto · Fotógrafo Brasil</p>
+                    </div>
+                </div>
+
+                <div class="type-row">
+                    <div class="type-row__meta">
+                        <span class="type-row__label">Eyebrow / Eyebrow Sub</span>
+                        <span class="type-row__spec">.5625rem (9px)<br/>weight 400–500<br/>tracking .28em<br/>uppercase</span>
+                    </div>
+                    <div class="type-row__sample">
+                        <p style="font-size:.5625rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:.5rem;">Portfólio — Acervo</p>
+                        <p style="font-size:.5625rem; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-light);">Cuiabá · Mato Grosso</p>
+                    </div>
+                </div>
+
+                <div class="type-row">
+                    <div class="type-row__meta">
+                        <span class="type-row__label">Chapter Num / Tag</span>
+                        <span class="type-row__spec">num: .5rem (8px) / w500 / +.36em<br/>tag: .5625rem (9px) / w500 / +.28em<br/>ambos: uppercase · color ink-mid</span>
+                    </div>
+                    <div class="type-row__sample" style="display:flex; align-items:center; gap:2rem;">
+                        <span style="font-size:.5rem; font-weight:500; letter-spacing:.36em; text-transform:uppercase; color:var(--ink-mid);">01</span>
+                        <span style="font-size:.5625rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); writing-mode:vertical-rl;">Instantes</span>
+                        <span style="font-size:.5625rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid);">Instantes (horizontal no mobile)</span>
+                    </div>
+                </div>
+
+                <div class="type-row">
+                    <div class="type-row__meta">
+                        <span class="type-row__label">Hyear / Scroll Label</span>
+                        <span class="type-row__spec">.5625rem (9px)<br/>weight 400<br/>tracking .3em<br/>uppercase · ink-xlight</span>
+                    </div>
+                    <div class="type-row__sample">
+                        <p style="font-size:.5625rem; font-weight:400; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-xlight);">Acervo — Cuiabá, MT</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ══════════════════════════════════════════════
+             3. ESPAÇAMENTOS
+        ══════════════════════════════════════════════ -->
+        <section id="espacamentos">
+            <span class="ds-section-label">03</span>
+            <h2 class="ds-section-title">Sistema de Espaçamentos</h2>
+
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Grade Base — 8px</p>
+                <p style="font-size:.6875rem; color:var(--ink-mid); line-height:1.8; margin-bottom:2rem;">
+                    Todo espaçamento de layout segue múltiplos de 8px. Exceções permitidas: micro-ajustes tipográficos (letter-spacing, line-height) e valores fluidos (vw, vh, clamp).
+                </p>
+
+                <div class="ds-row" style="border:1px solid var(--ink-xlight);">
+                    <div class="space-row">
+                        <span class="space-row__label">0.5rem / 8px</span>
+                        <div class="space-row__bar" style="width:.5rem;"></div>
+                        <span class="space-row__value">gap mínimo, padding interno de labels</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">1rem / 16px</span>
+                        <div class="space-row__bar" style="width:1rem;"></div>
+                        <span class="space-row__value">gap entre itens de lista, padding do burger</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">1.5rem / 24px</span>
+                        <div class="space-row__bar" style="width:1.5rem;"></div>
+                        <span class="space-row__value">padding horizontal mobile, gap de nav mobile</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">2rem / 32px</span>
+                        <div class="space-row__bar" style="width:2rem;"></div>
+                        <span class="space-row__value">padding lateral tablet, margin-bottom mobile chapters</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">2.5rem / 40px</span>
+                        <div class="space-row__bar" style="width:2.5rem;"></div>
+                        <span class="space-row__value">padding-bottom hbottom mobile</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">3rem / 48px</span>
+                        <div class="space-row__bar" style="width:3rem;"></div>
+                        <span class="space-row__value">padding-bottom hbottom desktop, pf-chapter margin top</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">3.5rem / 56px</span>
+                        <div class="space-row__bar" style="width:3.5rem;"></div>
+                        <span class="space-row__value">padding horizontal nav e pf-header desktop</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">4rem / 64px</span>
+                        <div class="space-row__bar" style="width:4rem;"></div>
+                        <span class="space-row__value">padding pf-header mobile (bottom)</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">6rem / 96px</span>
+                        <div class="space-row__bar" style="width:6rem;"></div>
+                        <span class="space-row__value">pf-header padding-top tablet</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">8rem / 128px</span>
+                        <div class="space-row__bar" style="width:8rem;"></div>
+                        <span class="space-row__value">pf-header padding-top desktop, pf-chapter margin-bottom</span>
+                    </div>
+                    <div class="space-row">
+                        <span class="space-row__label">16rem / 256px</span>
+                        <div class="space-row__bar" style="width:16rem;"></div>
+                        <span class="space-row__value">pf-chapter--last margin-bottom</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ds-card">
+                <p class="ds-card-title">Dimensões Fluidas (vh / vw)</p>
+                <table class="ds-table">
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Valor</th>
+                            <th>Notas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Hero height</td><td>min-height: 100vh / 100dvh</td><td>dvh em mobile para evitar barra do browser</td></tr>
+                        <tr><td>pf-chapter height</td><td>110vh</td><td>permite overlap editorial das imagens</td></tr>
+                        <tr><td>pf-chapter--last</td><td>100vh</td><td>último capítulo, menor respiro</td></tr>
+                        <tr><td>pf-full height</td><td>80vh</td><td>pausa documental</td></tr>
+                        <tr><td>himg-1</td><td>60vh tall · 26vw wide</td><td>retrato vertical esquerda</td></tr>
+                        <tr><td>himg-2</td><td>47vh tall · 41vw wide</td><td>paisagem direita</td></tr>
+                        <tr><td>himg-3</td><td>22vh tall · 17vw wide</td><td>acento inferior, bottom: 20vh</td></tr>
+                        <tr><td>Mobile pf-fig height</td><td>64vw padrão · 88vw retratos · 52vw detalhes</td><td>baseado em vw para manter proporção</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!-- ══════════════════════════════════════════════
+             4. ANIMAÇÕES & EASING
+        ══════════════════════════════════════════════ -->
+        <section id="animacoes">
+            <span class="ds-section-label">04</span>
+            <h2 class="ds-section-title">Animações & Transições</h2>
+
+            <!-- Easing -->
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Curvas de Easing</p>
+
+                <div class="ds-row" style="border:1px solid var(--ink-xlight);">
+                    <div class="easing-demo easing-1">
+                        <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                            <span style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid);">--expo (Principal)</span>
+                            <span class="mono">cubic-bezier(0.16, 1, 0.3, 1)</span>
+                        </div>
+                        <div class="easing-demo__track"><div class="easing-demo__dot"></div></div>
+                        <p class="ds-note">Usada em: clip-path de imagens, nav transitions, CTA hover, mobile menu, scroll line. Duração típica: 0.4s–1.5s.</p>
+                    </div>
+                    <div class="easing-demo easing-2">
+                        <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                            <span style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid);">ease (Secundária)</span>
+                            <span class="mono">ease</span>
+                        </div>
+                        <div class="easing-demo__track"><div class="easing-demo__dot"></div></div>
+                        <p class="ds-note">Usada em: hover opacity da logo, transições de cor de links. Duração: 0.3s.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animações -->
+            <div class="ds-card">
+                <p class="ds-card-title">Catálogo de Animações (GSAP + ScrollTrigger)</p>
+                <table class="ds-table">
+                    <thead>
+                        <tr>
+                            <th>Animação</th>
+                            <th>Propriedade</th>
+                            <th>Valores</th>
+                            <th>Duração</th>
+                            <th>Trigger</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entrance das fotos (hero + pf)</td>
+                            <td>clip-path</td>
+                            <td>inset(0 0 100% 0) → inset(0 0 0% 0)</td>
+                            <td>1.4s</td>
+                            <td>ScrollTrigger / timeline</td>
+                        </tr>
+                        <tr>
+                            <td>Ken Burns (zoom out)</td>
+                            <td>scale</td>
+                            <td>1.08 → 1 (estado CSS)</td>
+                            <td>1.5s</td>
+                            <td>junto ao clip-path</td>
+                        </tr>
+                        <tr>
+                            <td>Hero title (htitle__first, last)</td>
+                            <td>opacity + y</td>
+                            <td>0 / +30px → 1 / 0</td>
+                            <td>1.2s</td>
+                            <td>page load</td>
+                        </tr>
+                        <tr>
+                            <td>hmeta + hcta</td>
+                            <td>opacity + translateY</td>
+                            <td>0 / +16px → natural</td>
+                            <td>1.4s</td>
+                            <td>page load, stagger</td>
+                        </tr>
+                        <tr>
+                            <td>Scroll line (hscroll__line)</td>
+                            <td>scaleY / opacity</td>
+                            <td>0 → 1 loop</td>
+                            <td>1.8s</td>
+                            <td>page load</td>
+                        </tr>
+                        <tr>
+                            <td>Chapter labels (num + tag)</td>
+                            <td>opacity</td>
+                            <td>0 → 1</td>
+                            <td>1.4s</td>
+                            <td>ScrollTrigger: top 90%</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile menu open</td>
+                            <td>clip-path</td>
+                            <td>inset(0 0 100% 0) → inset(0 0 0% 0)</td>
+                            <td>0.7s</td>
+                            <td>classe .is-open</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile links entrance</td>
+                            <td>opacity + translateY</td>
+                            <td>0 / +8px → 1 / 0</td>
+                            <td>0.5s</td>
+                            <td>stagger via CSS + .is-open</td>
+                        </tr>
+                        <tr>
+                            <td>Nav scrolled</td>
+                            <td>background / backdrop</td>
+                            <td>transparent → rgba(255,255,255,.85) + blur</td>
+                            <td>0.4s</td>
+                            <td>scroll Y > 40px (JS)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top:2rem; padding-top:2rem; border-top:1px solid var(--ink-xlight);">
+                    <p style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:1rem;">Bibliotecas</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem;">
+                        <div>
+                            <p class="mono" style="margin-bottom:.25rem;">GSAP 3.12.5</p>
+                            <p class="ds-note">cdnjs.cloudflare.com</p>
+                        </div>
+                        <div>
+                            <p class="mono" style="margin-bottom:.25rem;">ScrollTrigger 3.12.5</p>
+                            <p class="ds-note">plugin GSAP — lenis integration</p>
+                        </div>
+                        <div>
+                            <p class="mono" style="margin-bottom:.25rem;">Lenis 1.0.42</p>
+                            <p class="ds-note">cdn.jsdelivr.net — smooth scroll</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hover effects -->
+            <div class="ds-card" style="margin-top:1px;">
+                <p class="ds-card-title">Efeitos de Hover</p>
+                <table class="ds-table">
+                    <thead>
+                        <tr><th>Elemento</th><th>Propriedade</th><th>Valor</th><th>Duração</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>nav__logo</td><td>opacity</td><td>1 → 0.6</td><td>0.3s --expo</td></tr>
+                        <tr><td>nav__link</td><td>opacity</td><td>1 → 0.5</td><td>0.3s --expo</td></tr>
+                        <tr><td>hcta__link</td><td>color + border + ::before opacity</td><td>ink-mid → bg / transparent → ink / 0 → 1</td><td>0.42–0.44s --expo</td></tr>
+                        <tr><td>hcta__arrow</td><td>translateY</td><td>0 → 4px</td><td>0.4s --expo</td></tr>
+                        <tr><td>himg (hero + pf)</td><td>__overlay opacity</td><td>0 → 0–1 (varia)</td><td>0.6s --expo</td></tr>
+                        <tr><td>nav__mobile-link</td><td>opacity</td><td>1 → 0.4</td><td>0.3s --expo</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!-- ══════════════════════════════════════════════
+             5. COMPONENTES
+        ══════════════════════════════════════════════ -->
+        <section id="componentes">
+            <span class="ds-section-label">05</span>
+            <h2 class="ds-section-title">Componentes</h2>
+
+            <!-- Nav Desktop -->
+            <div class="ds-card" style="padding:0; margin-bottom:1px; overflow:hidden;">
+                <div style="padding:2rem 2rem .75rem;">
+                    <p class="ds-card-title" style="margin-bottom:0;">Navegação — Desktop (.nav)</p>
+                </div>
+                <div class="preview-nav">
+                    <div class="preview-nav__logo"></div>
+                    <ul class="preview-nav__list">
+                        <li><a href="#" class="preview-nav__link">Portfólio</a></li>
+                        <li><a href="#" class="preview-nav__link">Sobre</a></li>
+                        <li><a href="#" class="preview-nav__link">Contato</a></li>
                     </ul>
                 </div>
-                
-                <div class="lg:col-span-8 flex flex-col gap-8">
-                    <!-- Type Scale -->
-                    <div class="glass-card p-8 rounded-3xl overflow-hidden relative">
-                        <div class="absolute right-0 top-0 text-[10rem] font-bold text-zinc-900/5 -mt-10 -mr-10 select-none">Aa</div>
-                        
-                        <div class="space-y-8 relative z-10">
-                            <div class="group flex flex-col md:flex-row md:items-baseline gap-4 border-b border-zinc-200/50 pb-4">
-                                <div class="w-24 text-zinc-400 ds-caption">H1 / 72px</div>
-                                <div class="ds-h1 group-hover:translate-x-2 transition-transform text-zinc-900">Heading 1</div>
-                            </div>
-                            <div class="group flex flex-col md:flex-row md:items-baseline gap-4 border-b border-zinc-200/50 pb-4">
-                                <div class="w-24 text-zinc-400 ds-caption">H2 / 60px</div>
-                                <div class="ds-h2 group-hover:translate-x-2 transition-transform text-zinc-800">Heading 2</div>
-                            </div>
-                            <div class="group flex flex-col md:flex-row md:items-baseline gap-4 border-b border-zinc-200/50 pb-4">
-                                <div class="w-24 text-zinc-400 ds-caption">H3 / 48px</div>
-                                <div class="ds-h3 group-hover:translate-x-2 transition-transform text-zinc-800">Heading 3</div>
-                            </div>
-                            <div class="group flex flex-col md:flex-row md:items-baseline gap-4 border-b border-zinc-200/50 pb-4">
-                                <div class="w-24 text-zinc-400 ds-caption">H4 / 36px</div>
-                                <div class="ds-h4 group-hover:translate-x-2 transition-transform text-zinc-800">Heading 4</div>
-                            </div>
-                            <div class="group flex flex-col md:flex-row md:items-baseline gap-4 border-b border-zinc-200/50 pb-4">
-                                <div class="w-24 text-zinc-400 ds-caption">H5 / 30px</div>
-                                <div class="ds-h5 group-hover:translate-x-2 transition-transform text-zinc-700">Heading 5</div>
-                            </div>
-                            <div class="group flex flex-col md:flex-row md:items-baseline gap-4 border-b border-zinc-200/50 pb-4">
-                                <div class="w-24 text-zinc-400 ds-caption">H6 / 24px</div>
-                                <div class="ds-h6 group-hover:translate-x-2 transition-transform text-zinc-700">Heading 6</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Body Scale -->
-                    <div class="glass-card p-8 rounded-3xl">
-                        <div class="space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                <div class="text-zinc-400 ds-caption">Body Large<br/>18px / 400</div>
-                                <div class="md:col-span-3 ds-body-lg text-zinc-600">O design não é apenas o que parece e o que se sente. Design é como funciona. Uma boa tipografia define o ritmo da leitura.</div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-6 border-t border-zinc-200/50">
-                                <div class="text-zinc-400 ds-caption">Body Default<br/>16px / 400</div>
-                                <div class="md:col-span-3 ds-body text-zinc-600">O design não é apenas o que parece e o que se sente. Design é como funciona. Uma boa tipografia define o ritmo da leitura.</div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-6 border-t border-zinc-200/50">
-                                <div class="text-zinc-400 ds-caption">Body Small<br/>14px / 400</div>
-                                <div class="md:col-span-3 ds-body-sm text-zinc-600">O design não é apenas o que parece e o que se sente. Design é como funciona. Uma boa tipografia define o ritmo da leitura.</div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-6 border-t border-zinc-200/50">
-                                <div class="text-zinc-400 ds-caption">Caption / Label<br/>12px / 500 / UP</div>
-                                <div class="md:col-span-3 ds-caption text-zinc-500">INSTRUÇÕES, RÓTULOS DE BOTÕES E TEXTOS AUXILIARES.</div>
-                            </div>
-                        </div>
-                    </div>
+                <div style="padding:1.5rem 2rem; border-top:1px solid var(--ink-xlight); background:var(--bg);">
+                    <p class="ds-note">
+                        position: fixed · z-index: 200 · height: 4rem · padding: 0 3.5rem<br/>
+                        Estado .scrolled: background rgba(255,255,255,.85) + backdrop-filter: blur(12px) + border-bottom 1px ink-xlight<br/>
+                        Logo: &lt;a class="nav__logo"&gt;&lt;img&gt;&lt;/a&gt; — height 2rem / width 8rem / object-fit contain<br/>
+                        Links: .6875rem · w500 · tracking .12em · uppercase · opacity .5 no hover
+                    </p>
                 </div>
             </div>
-        </section>
 
-        <!-- 3. Colors Section -->
-        <section id="colors" class="opacity-0 animate-fade-in-up delay-200 scroll-mt-32">
-            <div class="mb-12">
-                <h2 class="ds-h2 mb-4">Cores</h2>
-                <p class="ds-body-lg text-zinc-500">Paleta minimalista focada no contraste do branco com tons escuros elegantes e toques sutis de cor.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Color Card: Primary -->
-                <div class="glass-card rounded-3xl p-2 group hover:-translate-y-2 transition-transform duration-300">
-                    <div class="h-40 rounded-2xl bg-zinc-900 mb-4 shadow-inner relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                    </div>
-                    <div class="px-4 pb-4">
-                        <h4 class="ds-h6 mb-1">Primary</h4>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="ds-caption text-zinc-400">HEX</span>
-                            <span class="ds-body-sm font-medium">#18181b</span>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="ds-caption text-zinc-400">RGB</span>
-                            <span class="ds-body-sm font-medium">24, 24, 27</span>
-                        </div>
-                        <p class="ds-caption text-zinc-500 lowercase border-t border-zinc-200 pt-2">Uso: Texto principal, fundos invertidos, botões primários. (Contraste AAA)</p>
-                    </div>
-                </div>
-
-                <!-- Color Card: Neutral (White) -->
-                <div class="glass-card rounded-3xl p-2 group hover:-translate-y-2 transition-transform duration-300">
-                    <div class="h-40 rounded-2xl bg-white mb-4 shadow-sm border border-zinc-100 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-100/50 to-transparent"></div>
-                    </div>
-                    <div class="px-4 pb-4">
-                        <h4 class="ds-h6 mb-1">Neutral Base</h4>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="ds-caption text-zinc-400">HEX</span>
-                            <span class="ds-body-sm font-medium">#ffffff</span>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="ds-caption text-zinc-400">RGB</span>
-                            <span class="ds-body-sm font-medium">255, 255, 255</span>
-                        </div>
-                        <p class="ds-caption text-zinc-500 lowercase border-t border-zinc-200 pt-2">Uso: Fundos de página, cards em glassmorphism, texto no fundo primário.</p>
-                    </div>
-                </div>
-
-                <!-- Color Card: Secondary -->
-                <div class="glass-card rounded-3xl p-2 group hover:-translate-y-2 transition-transform duration-300">
-                    <div class="h-40 rounded-2xl bg-zinc-500 mb-4 shadow-inner relative overflow-hidden"></div>
-                    <div class="px-4 pb-4">
-                        <h4 class="ds-h6 mb-1">Secondary Text</h4>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="ds-caption text-zinc-400">HEX</span>
-                            <span class="ds-body-sm font-medium">#71717a</span>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="ds-caption text-zinc-400">RGB</span>
-                            <span class="ds-body-sm font-medium">113, 113, 122</span>
-                        </div>
-                        <p class="ds-caption text-zinc-500 lowercase border-t border-zinc-200 pt-2">Uso: Subtítulos, labels, texto de suporte, bordas em hover. (Contraste AA)</p>
-                    </div>
-                </div>
-
-                <!-- Color Card: Accent -->
-                <div class="glass-card rounded-3xl p-2 group hover:-translate-y-2 transition-transform duration-300">
-                    <div class="h-40 rounded-2xl bg-blue-500 mb-4 shadow-inner relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                    </div>
-                    <div class="px-4 pb-4">
-                        <h4 class="ds-h6 mb-1">Accent</h4>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="ds-caption text-zinc-400">HEX</span>
-                            <span class="ds-body-sm font-medium">#3b82f6</span>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="ds-caption text-zinc-400">RGB</span>
-                            <span class="ds-body-sm font-medium">59, 130, 246</span>
-                        </div>
-                        <p class="ds-caption text-zinc-500 lowercase border-t border-zinc-200 pt-2">Uso: Links, botões de ação, indicadores de progresso, estados ativos.</p>
-                    </div>
-                </div>
-
-                <!-- Color Card: Feedback -->
-                <div class="glass-card rounded-3xl p-2 group hover:-translate-y-2 transition-transform duration-300">
-                    <div class="h-40 rounded-2xl bg-emerald-500 mb-4 shadow-inner relative overflow-hidden"></div>
-                    <div class="px-4 pb-4">
-                        <h4 class="ds-h6 mb-1">Feedback Success</h4>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="ds-caption text-zinc-400">HEX</span>
-                            <span class="ds-body-sm font-medium">#10b981</span>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="ds-caption text-zinc-400">RGB</span>
-                            <span class="ds-body-sm font-medium">16, 185, 129</span>
-                        </div>
-                        <p class="ds-caption text-zinc-500 lowercase border-t border-zinc-200 pt-2">Uso: Alertas de sucesso, validações positivas, status online.</p>
-                    </div>
-                </div>
-
-                <!-- Color Card: Gradient Decorative -->
-                <div class="glass-card rounded-3xl p-2 group hover:-translate-y-2 transition-transform duration-300">
-                    <div class="h-40 rounded-2xl bg-gradient-to-br from-zinc-400 via-zinc-800 to-zinc-400 mb-4 shadow-inner relative overflow-hidden"></div>
-                    <div class="px-4 pb-4">
-                        <h4 class="ds-h6 mb-1">Decorative Gradient</h4>
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="ds-caption text-zinc-400">Stops</span>
-                            <span class="ds-body-sm font-medium">#a1a1aa &rarr; #27272a</span>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="ds-caption text-zinc-400">Type</span>
-                            <span class="ds-body-sm font-medium">Linear BR</span>
-                        </div>
-                        <p class="ds-caption text-zinc-500 lowercase border-t border-zinc-200 pt-2">Uso: Textos de destaque (transparent lettering), bordas decorativas em heros.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Layouts Fotográficos -->
-        <section id="layouts" class="opacity-0 animate-fade-in-up delay-300 scroll-mt-32">
-            <div class="mb-12">
-                <h2 class="ds-h2 mb-4">Layouts Fotográficos</h2>
-                <p class="ds-body-lg text-zinc-500">Exemplos editoriais de como as fotografias devem ser diagramadas com a tipografia, inspirados nas referências enviadas.</p>
-            </div>
-
-            <div class="flex flex-col gap-24">
-                <!-- Exemplo 1: Retratos -->
-                <div class="relative w-full flex items-center justify-center min-h-[600px] my-12">
-                    <div class="absolute inset-0 flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 z-0">
-                        <div class="w-[80%] md:w-[45%] max-w-[450px]">
-                            <img src="Imagens/Sem Cor/Sem-Título-1.png" alt="Retrato 1" class="w-full h-auto object-cover" />
-                        </div>
-                        <div class="w-[70%] md:w-[40%] max-w-[400px] flex flex-col gap-8 transform md:translate-y-24">
-                            <img src="Imagens/Sem Cor/Sem-Título-2.png" alt="Retrato 2" class="w-full h-auto object-cover" />
-                        </div>
-                    </div>
-                    <!-- Big overlapping text -->
-                    <h2 class="text-[5rem] md:text-[8rem] lg:text-[10rem] font-bold text-zinc-900 tracking-tighter leading-none z-10 select-none text-center px-4 mix-blend-darken">
-                        Retratos
-                    </h2>
-                </div>
-
-                <!-- Exemplo 2: Livros -->
-                <div class="relative w-full flex flex-col md:flex-row items-start justify-between gap-12 mt-16 md:mt-32 border-t border-zinc-200 pt-16">
-                    <div class="w-[90%] md:w-[45%] max-w-[500px]">
-                        <img src="Imagens/Sem Cor/Sem-Título-3.png" alt="Livro Capa" class="w-full h-auto object-cover" />
-                    </div>
-                    
-                    <div class="w-full md:w-[50%] flex flex-col gap-8 justify-start pt-8">
+            <!-- Nav Mobile / Burger -->
+            <div class="ds-grid-2" style="border:1px solid var(--ink-xlight); margin-bottom:1px;">
+                <div class="ds-card" style="border:none;">
+                    <p class="ds-card-title">Botão Burger (.nav__burger)</p>
+                    <div style="display:flex; align-items:center; gap:3rem; padding:1rem 0;">
                         <div>
-                            <h2 class="text-[4rem] md:text-[6rem] lg:text-[8rem] font-bold text-zinc-900 tracking-tighter leading-none select-none mb-6">
-                                Livros
-                            </h2>
-                            <p class="ds-caption text-zinc-900 font-bold border-b-2 border-zinc-900 pb-2 inline-block uppercase tracking-widest text-sm">Trilogia Desamadas</p>
+                            <p style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:1rem;">Repouso</p>
+                            <button class="preview-burger">
+                                <span></span><span></span><span></span>
+                            </button>
                         </div>
-                        
-                        <div class="w-[90%] md:w-[80%] mt-8 self-end">
-                            <img src="Imagens/Sem Cor/_MG_1300.jpg" alt="Foto Horizontal" class="w-full h-auto object-cover" />
+                    </div>
+                    <p class="ds-note">
+                        3 spans height:1px · gap:5px · display:none em desktop (>769px)<br/>
+                        aria-expanded="false/true" atualizado via JS<br/>
+                        Span 1 e 3 se afastam sutilmente no hover
+                    </p>
+                </div>
+                <div class="ds-card" style="border:none; border-left:1px solid var(--ink-xlight);">
+                    <p class="ds-card-title">Scroll Indicator (.hscroll)</p>
+                    <div style="padding:1rem 0; display:flex; align-items:flex-start; gap:3rem;">
+                        <div class="preview-scroll">
+                            <span class="preview-scroll__label">Scroll</span>
+                            <div class="preview-scroll__line"></div>
+                        </div>
+                        <div>
+                            <p class="ds-note">
+                                Label: .5rem · w500 · tracking .3em · ink-light<br/>
+                                Linha: 1px · height 4rem<br/>
+                                Animado via GSAP: scaleY 0→1, opacity pulse<br/>
+                                display:none no mobile (≤769px)
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- 5. UI Components Section -->
-        <section id="components" class="opacity-0 animate-fade-in-up delay-300 scroll-mt-32">
-            <div class="mb-12">
-                <h2 class="ds-h2 mb-4">Componentes UI</h2>
-                <p class="ds-body-lg text-zinc-500">Elementos interativos com animações fluidas e aspecto tridimensional "fora da caixa".</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                
-                <!-- Buttons -->
-                <div class="glass-card rounded-3xl p-10">
-                    <h3 class="ds-h5 mb-8 border-b border-zinc-200 pb-4">Botões & Ações</h3>
-                    
-                    <div class="space-y-8">
-                        <div>
-                            <p class="ds-caption text-zinc-400 mb-4">PRIMARY (SOLID)</p>
-                            <div class="flex flex-wrap gap-4">
-                                <button class="px-6 py-3 rounded-full bg-zinc-900 text-white font-medium hover:bg-zinc-800 hover:scale-105 transition-all shadow-lg hover:shadow-xl active:scale-95">
-                                    Primary Action
-                                </button>
-                                <button class="px-6 py-3 rounded-full bg-blue-500 text-white font-medium hover:bg-blue-600 hover:scale-105 transition-all shadow-lg hover:shadow-xl active:scale-95 flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                                    Accent Action
-                                </button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <p class="ds-caption text-zinc-400 mb-4">SECONDARY (GLASS/GHOST)</p>
-                            <div class="flex flex-wrap gap-4">
-                                <button class="px-6 py-3 rounded-full glass-card font-medium text-zinc-800 hover:bg-white hover:-translate-y-1 transition-all shadow-sm hover:shadow-md active:translate-y-0">
-                                    Secondary Glass
-                                </button>
-                                <button class="px-6 py-3 rounded-full border border-zinc-300 font-medium text-zinc-600 hover:border-zinc-900 hover:text-zinc-900 transition-colors">
-                                    Outline Button
-                                </button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <p class="ds-caption text-zinc-400 mb-4">ICON BUTTONS (HOVER GLOW)</p>
-                            <div class="flex gap-4">
-                                <button class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-zinc-600 hover:text-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                </button>
-                                <button class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-zinc-600 hover:text-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                </button>
-                                <button class="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400 cursor-not-allowed">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cards & Interactive Elements -->
-                <div class="glass-card rounded-3xl p-10 flex flex-col gap-8">
-                    <h3 class="ds-h5 mb-2 border-b border-zinc-200 pb-4">Cards & Hover Effects</h3>
-                    
-                    <!-- 3D Transform Card Example -->
-                    <div class="relative group cursor-pointer perspective-1000">
-                        <div class="glass-panel p-6 rounded-2xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] border-white border">
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-zinc-800 to-zinc-900 text-white flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                            </div>
-                            <h4 class="ds-h6 mb-2">Card de Destaque</h4>
-                            <p class="ds-body-sm text-zinc-500">Passe o mouse para ver o efeito de elevação, glow e transformação do ícone. Um card 'glass' puro.</p>
-                            
-                            <div class="mt-4 flex items-center text-blue-500 ds-caption group-hover:translate-x-2 transition-transform">
-                                Saiba mais <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Input / Form elements -->
+            <!-- CTA Button -->
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Botão CTA (.hcta__link)</p>
+                <div style="display:flex; align-items:center; gap:4rem; flex-wrap:wrap;">
                     <div>
-                        <p class="ds-caption text-zinc-400 mb-4">INPUT FIELDS</p>
-                        <div class="relative group">
-                            <input type="text" placeholder="Digite seu email..." class="w-full px-6 py-4 rounded-xl glass-card bg-white/50 border-zinc-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 outline-none transition-all ds-body text-zinc-800 placeholder-zinc-400">
-                            <div class="absolute right-2 top-2">
-                                <button class="px-4 py-2 bg-zinc-900 text-white rounded-lg text-sm font-medium hover:bg-zinc-800 transition-colors">Assinar</button>
-                            </div>
-                        </div>
+                        <p style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); margin-bottom:1rem;">Repouso</p>
+                        <a href="#" class="preview-cta-link">
+                            <span>Ver Portfólio</span>
+                            <span class="preview-cta-arrow">↓</span>
+                        </a>
                     </div>
-
-                    <!-- Tags -->
-                    <div>
-                        <p class="ds-caption text-zinc-400 mb-4">TAGS / BADGES</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 rounded-full bg-zinc-100 text-zinc-600 ds-caption border border-zinc-200">Neutral Tag</span>
-                            <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 ds-caption border border-blue-200">Active Tag</span>
-                            <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 ds-caption border border-emerald-200">Success Tag</span>
-                            <span class="px-3 py-1 rounded-full bg-gradient-to-r from-zinc-800 to-zinc-900 text-white ds-caption shadow-md">Premium Tag</span>
-                        </div>
+                    <div style="background:var(--ink); padding:1.5rem 2rem;">
+                        <p style="font-size:.5rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-light); margin-bottom:1rem;">Hover (passe o mouse)</p>
+                        <a href="#" class="preview-cta-link" style="color:var(--bg); border-color:var(--ink);">
+                            <span>Ver Portfólio</span>
+                            <span class="preview-cta-arrow">↓</span>
+                        </a>
                     </div>
                 </div>
+                <div style="margin-top:2rem; padding-top:2rem; border-top:1px solid var(--ink-xlight);">
+                    <p class="ds-note">
+                        display: inline-flex · align-items: center · gap: .875rem<br/>
+                        font: .6875rem / w500 / tracking .14em / uppercase<br/>
+                        padding: 1rem 2rem · border-radius: 9999px · border: 1px solid --ink-xlight<br/>
+                        ::before fill (background: --ink) anima via opacity 0→1 em .44s --expo<br/>
+                        Seta ↓ desce 4px no hover (.4s --expo)<br/>
+                        Mobile: padding .75rem 1.25rem / font .625rem / ::before desativado
+                    </p>
+                </div>
+            </div>
 
+            <!-- Chapter Labels -->
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Labels de Capítulo (.pf-ch__num + .pf-ch__tag)</p>
+                <div style="display:flex; flex-direction:column; gap:2rem;">
+                    <div style="display:flex; align-items:center; gap:4rem; padding:1.5rem; background:#f5f5f5;">
+                        <span style="font-size:.5rem; font-weight:500; letter-spacing:.36em; text-transform:uppercase; color:var(--ink-mid);">01</span>
+                        <span style="font-size:.5625rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); writing-mode:vertical-rl;">Instantes</span>
+                        <span style="font-size:.5rem; font-weight:500; letter-spacing:.36em; text-transform:uppercase; color:var(--ink-mid);">02</span>
+                        <span style="font-size:.5625rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); writing-mode:vertical-rl;">Ausências</span>
+                        <span style="font-size:.5rem; font-weight:500; letter-spacing:.36em; text-transform:uppercase; color:var(--ink-mid);">03</span>
+                        <span style="font-size:.5625rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); writing-mode:vertical-rl;">Permanências</span>
+                        <span style="font-size:.5rem; font-weight:500; letter-spacing:.36em; text-transform:uppercase; color:var(--ink-mid);">04</span>
+                        <span style="font-size:.5625rem; font-weight:500; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mid); writing-mode:vertical-rl;">Fragmentos</span>
+                    </div>
+                    <p class="ds-note">
+                        .pf-ch__num: position absolute · top 3rem · right 3.5rem · todos os capítulos<br/>
+                        .pf-ch__tag: position absolute · bottom 8rem (c1–c3) / 4rem (c4) — vertical-rl no desktop, horizontal no mobile<br/>
+                        Ambos: z-index 20 · pointer-events none · fade-in via GSAP ScrollTrigger (top 90%)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image figure -->
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Figure com Overlay (.pf-fig / .himg)</p>
+                <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                    <div style="position:relative; width:200px; height:280px; overflow:hidden; background:var(--ink-xlight);">
+                        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.5625rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-light);">Retrato<br/>(portrait)</div>
+                        <div class="preview-figure__overlay" style="opacity:.08;"></div>
+                    </div>
+                    <div style="position:relative; width:320px; height:200px; overflow:hidden; background:var(--ink-xlight);">
+                        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.5625rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-light);">Paisagem (landscape)</div>
+                    </div>
+                    <div style="position:relative; width:160px; height:200px; overflow:hidden; background:var(--ink-xlight);">
+                        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.5625rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-light);">Acento</div>
+                    </div>
+                </div>
+                <p class="ds-note" style="margin-top:1.5rem;">
+                    Entrada via clip-path: inset(0 0 100% 0) → inset(0 0 0% 0) — GSAP 1.4s --expo<br/>
+                    img interna: transform: scale(1.08) → scale(1) (ken burns, 1.5s)<br/>
+                    __overlay: position absolute / inset 0 / background --ink / opacity 0 → 0–1 no hover (.6s --expo)<br/>
+                    will-change: clip-path, transform nas duas camadas
+                </p>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="ds-card" style="padding:0; overflow:hidden;">
+                <div style="padding:2rem 2rem .75rem; background:var(--bg);">
+                    <p class="ds-card-title" style="margin-bottom:0;">Menu Mobile (.nav__mobile)</p>
+                </div>
+                <div class="preview-mobile-menu">
+                    <a href="#" class="preview-mobile-link">Portfólio</a>
+                    <a href="#" class="preview-mobile-link">Sobre</a>
+                    <a href="#" class="preview-mobile-link">Contato</a>
+                    <span class="preview-mobile-meta">Cuiabá · Mato Grosso</span>
+                </div>
+                <div style="padding:1.5rem 2rem; border-top:1px solid var(--ink-xlight);">
+                    <p class="ds-note">
+                        position: fixed · inset 0 · z-index: 201 · background: --ink<br/>
+                        Entrada: clip-path inset(0 0 100% 0) → inset(0 0 0% 0) em .7s --expo<br/>
+                        Links: clamp(2.5rem, 12vw, 5rem) · w700 · tracking -.04em · color --bg<br/>
+                        Aparecem com opacity + translateY stagger via CSS transition + .is-open<br/>
+                        Meta: .5625rem · w400 · tracking .2em · uppercase · color --ink-light
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══════════════════════════════════════════════
+             6. ESTRUTURA & GRID
+        ══════════════════════════════════════════════ -->
+        <section id="estrutura">
+            <span class="ds-section-label">06</span>
+            <h2 class="ds-section-title">Estrutura, Grid & Hierarquia</h2>
+
+            <!-- Z-index -->
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Hierarquia Z-Index</p>
+                <table class="ds-table">
+                    <thead>
+                        <tr><th>Camada</th><th>Seletor</th><th>z-index</th><th>Notas</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Cursor dot</td><td>.cursor</td><td>9999</td><td>sempre no topo absoluto</td></tr>
+                        <tr><td>Cursor ring</td><td>.cursor-ring</td><td>9998</td><td>abaixo do dot</td></tr>
+                        <tr><td>Mobile menu</td><td>.nav__mobile</td><td>201</td><td>sobre a nav</td></tr>
+                        <tr><td>Navegação</td><td>.nav</td><td>200</td><td>fixa, sobre o hero</td></tr>
+                        <tr><td>hyear label</td><td>.hyear</td><td>199</td><td>abaixo da nav</td></tr>
+                        <tr><td>Chapter labels</td><td>.pf-ch__num / .pf-ch__tag</td><td>20</td><td>sobre imagens do portfólio</td></tr>
+                        <tr><td>Hero title</td><td>.htitle</td><td>2</td><td>sobre imagens do hero</td></tr>
+                        <tr><td>Hero images</td><td>.himg-1/2/3</td><td>1</td><td>abaixo do título</td></tr>
+                        <tr><td>Hero bottom bar</td><td>.hbottom</td><td>0</td><td>nunca sobre imagens</td></tr>
+                        <tr><td>Portfolio images</td><td>.pf-fig</td><td>1–3 (por capítulo)</td><td>sobreposição editorial</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Breakpoints -->
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Breakpoints</p>
+                <table class="ds-table">
+                    <thead>
+                        <tr><th>Breakpoint</th><th>Alcance</th><th>Mudanças principais</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>max-width: 1280px</td><td>Tablet largo</td><td>himg-1 30vw, himg-2 45vw, himg-3 20vw / pf-fig--1a 40vw</td></tr>
+                        <tr><td>max-width: 1024px</td><td>Tablet</td><td>nav padding 2rem / hero reimaginado / pf-fig ajustados</td></tr>
+                        <tr><td>max-width: 769px</td><td>Mobile</td><td>cursor off / nav__list off / burger on / hero: htitle hidden, himgs empilhados / pf: flex-col</td></tr>
+                        <tr><td>max-width: 520px</td><td>Mobile pequeno</td><td>htitle__last font-size menor: clamp(3rem, 19vw, 5.5rem)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Layout Portfólio -->
+            <div class="ds-card" style="margin-bottom:1px;">
+                <p class="ds-card-title">Layout Editorial — Capítulos do Portfólio</p>
+                <table class="ds-table">
+                    <thead>
+                        <tr><th>Capítulo</th><th>Tag</th><th>Classe</th><th>Imagens (pf-fig--)</th><th>Orientação</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>01</td><td>Instantes</td><td>#pf-c1</td><td>1a (retrato esq) · 1b (paisagem dir) · 1c (acento centro-baixo)</td><td>normal</td></tr>
+                        <tr><td>02</td><td>Ausências</td><td>#pf-c2 .pf-chapter--flip</td><td>2a (retrato dir) · 2b (paisagem esq) · 2c (acento centro)</td><td>espelhado</td></tr>
+                        <tr><td>03</td><td>Permanências</td><td>#pf-c3 .pf-chapter--flip</td><td>2a · 2b · 2c (reutiliza layout 02)</td><td>espelhado</td></tr>
+                        <tr><td>04</td><td>Fragmentos</td><td>#pf-c4 .pf-chapter--last</td><td>3a (grande centro) · 3b (retrato esq sobrepost)</td><td>normal · sem margin excess</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Convenções de nomenclatura -->
+            <div class="ds-card">
+                <p class="ds-card-title">Convenções de Nomenclatura (BEM adaptado)</p>
+                <table class="ds-table">
+                    <thead>
+                        <tr><th>Padrão</th><th>Exemplo</th><th>Uso</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Bloco</td><td>.nav · .hero · .pf · .htitle · .himg</td><td>Componente raiz</td></tr>
+                        <tr><td>Elemento (__)</td><td>.nav__logo · .himg__overlay · .pf-ch__num</td><td>Filho direto do bloco</td></tr>
+                        <tr><td>Modificador (--)</td><td>.pf-chapter--flip · .pf-chapter--last · .nav.scrolled</td><td>Variante de estado ou layout</td></tr>
+                        <tr><td>JS hooks</td><td>#js-nav · #js-burger · #js-cursor · #js-ring · #js-sline</td><td>IDs exclusivos para JS, nunca estilizados via ID</td></tr>
+                        <tr><td>Prefixo h</td><td>.htitle · .himg · .hbottom · .hmeta · .hcta · .hscroll</td><td>Elementos internos do Hero</td></tr>
+                        <tr><td>Prefixo pf</td><td>.pf-header · .pf-chapter · .pf-fig · .pf-ch</td><td>Elementos do Portfolio</td></tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="mt-32 border-t border-zinc-200/50 relative z-10 glass-panel">
-        <div class="max-w-[1400px] mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center text-white font-bold text-sm">DS</div>
-                <span class="font-medium text-zinc-800">Cunto Design System</span>
-            </div>
-            <p class="ds-body-sm text-zinc-500">© 2026. Criado para inspirar e escalar.</p>
-        </div>
+    <!-- DS Footer -->
+    <footer style="background:var(--ink); padding:2rem 3rem; display:flex; align-items:center; justify-content:space-between;">
+        <span style="font-size:.5rem; font-weight:500; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-light);">José Cunto Neto — Design System</span>
+        <span style="font-size:.5rem; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-mid);">v2.0 · 2026</span>
     </footer>
 
-    <!-- Intersection Observer for Scroll Animations -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animationPlayState = 'running';
-                        entry.target.style.opacity = '1';
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.animate-fade-in-up').forEach(el => {
-                el.style.animationPlayState = 'paused';
-                observer.observe(el);
-            });
-        });
-    </script>
 </body>
 </html>

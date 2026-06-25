@@ -31,17 +31,8 @@
         stagger: 0.28,
     }, 0.15);
 
-    // Eyebrow
-    tl.to('.htitle__eyebrow', { opacity: 1, y: 0, duration: 1.0 }, 0.7);
-
-    // "José" — bloco inteiro
-    tl.to('.htitle__first', { opacity: 1, y: 0, duration: 1.0 }, 0.9);
-
-    // "Cunto" — bloco inteiro, ligeiramente atrasado
-    tl.to('.htitle__last', { opacity: 1, y: 0, duration: 1.2 }, 1.05);
-
-    // Subtitle
-    tl.to('.htitle__sub',  { opacity: 1, y: 0, duration: 0.9 }, 1.5);
+    // Título principal (palavra única, sólida)
+    tl.to('.htitle__main', { opacity: 1, y: 0, duration: 1.4, ease: E }, 0.8);
 
     // Year
     tl.to('.hyear',        { opacity: 1,        duration: 1.2 }, 1.5);
@@ -134,6 +125,12 @@
             el.addEventListener('mouseenter', () => document.body.classList.add('on-link'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('on-link'));
         });
+
+        const footer = document.querySelector('.ft');
+        if (footer) {
+            footer.addEventListener('mouseenter', () => document.body.classList.add('on-dark'));
+            footer.addEventListener('mouseleave', () => document.body.classList.remove('on-dark'));
+        }
     }
 
     /* ── Navbar scroll state ────────────────────────────── */
@@ -221,5 +218,68 @@
             scrollTrigger: { trigger: el, start: 'top 90%' }
         });
     });
+
+    /* ── About — entrance + parallax ───────────────────── */
+    if (document.querySelector('.ab')) {
+        const abTl = gsap.timeline({
+            scrollTrigger: { trigger: '.ab', start: 'top 78%' }
+        });
+
+        abTl
+            .to('.ab__fig', {
+                clipPath: 'inset(0 0 0% 0)',
+                duration: 1.75,
+                ease: E,
+            }, 0)
+            .to('.ab__fig img', {
+                scale: 1,
+                duration: 2.4,
+                ease: E,
+            }, 0)
+            .to('.ab__num, .ab__tag', { opacity: 1, duration: 1.2, ease: E }, 0.2)
+            .to('.ab__eyebrow',     { opacity: 1, y: 0, duration: 1.0, ease: E }, 0.35)
+            .to('.ab__title-first', { opacity: 1, y: 0, duration: 1.2, ease: E }, 0.5)
+            .to('.ab__title-last',  { opacity: 1, y: 0, duration: 1.2, ease: E }, 0.62)
+            .to('.ab__bio',         { opacity: 1, y: 0, duration: 1.0, ease: E }, 0.78)
+            .to('.ab__footer',      { opacity: 1, y: 0, duration: 1.0, ease: E }, 0.92);
+
+        gsap.to('.ab__fig', {
+            y: -64,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.ab',
+                start: 'top bottom',
+                end:   'bottom top',
+                scrub: 2.0,
+            }
+        });
+
+        const abFig     = document.querySelector('.ab__fig');
+        const abImg     = abFig.querySelector('img');
+        const abOverlay = abFig.querySelector('.ab__fig-overlay');
+
+        if (!window.matchMedia('(hover: none)').matches) {
+            abFig.addEventListener('mouseenter', () => {
+                gsap.to(abImg,     { scale: 1.04, duration: 0.85, ease: E });
+                gsap.to(abOverlay, { opacity: 0.06, duration: 0.5 });
+            });
+            abFig.addEventListener('mouseleave', () => {
+                gsap.to(abImg,     { scale: 1,    duration: 1.3,  ease: E });
+                gsap.to(abOverlay, { opacity: 0,   duration: 0.5 });
+            });
+        }
+    }
+
+    /* ── Footer — entrance ──────────────────────────────── */
+    if (document.querySelector('.ft')) {
+        gsap.timeline({
+            scrollTrigger: { trigger: '.ft', start: 'top 90%' }
+        })
+        .from('.ft__logo',      { autoAlpha: 0,        duration: 1.2, ease: E }, 0)
+        .from('.ft__tagline',   { autoAlpha: 0,        duration: 1.0, ease: E }, 0.2)
+        .from('.ft__col-label', { autoAlpha: 0,        duration: 1.0, ease: E, stagger: .08 }, 0.2)
+        .from('.ft__social',    { autoAlpha: 0,        duration: 1.0, ease: E }, 0.4)
+        .from('.ft__copy',      { autoAlpha: 0,        duration: 1.0, ease: E }, 0.6);
+    }
 
 }());
