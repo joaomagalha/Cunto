@@ -294,17 +294,23 @@
             logoObserver.observe(ftLogo);
         }
 
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: '.ft',
-                start: 'top bottom',
-                invalidateOnRefresh: true,
+        const ftContent = [
+            '.ft__tagline', '.ft__col-label', '.ft__links', '.ft__copy'
+        ].flatMap(sel => Array.from(document.querySelectorAll(sel)));
+
+        gsap.set(ftContent, { autoAlpha: 0 });
+
+        const ftContentObserver = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                gsap.timeline()
+                    .to('.ft__tagline',   { autoAlpha: 1, duration: 1.0, ease: E }, 0)
+                    .to('.ft__col-label', { autoAlpha: 1, duration: 1.0, ease: E, stagger: .1 }, 0.1)
+                    .to('.ft__links',     { autoAlpha: 1, duration: 1.0, ease: E, stagger: .1 }, 0.3)
+                    .to('.ft__copy',      { autoAlpha: 1, duration: 1.0, ease: E }, 0.5);
+                ftContentObserver.disconnect();
             }
-        })
-        .from('.ft__tagline',   { autoAlpha: 0, duration: 1.0, ease: E }, 0)
-        .from('.ft__col-label', { autoAlpha: 0, duration: 1.0, ease: E, stagger: .1 }, 0.1)
-        .from('.ft__links',     { autoAlpha: 0, duration: 1.0, ease: E, stagger: .1 }, 0.3)
-        .from('.ft__copy',      { autoAlpha: 0, duration: 1.0, ease: E }, 0.5);
+        }, { threshold: 0.05 });
+        ftContentObserver.observe(document.querySelector('.ft'));
     }
 
     /* ── Recalcula posições após imagens lazy carregarem ── */
