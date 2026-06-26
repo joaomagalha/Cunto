@@ -280,14 +280,31 @@
 
     /* ── Footer — entrance ──────────────────────────────── */
     if (document.querySelector('.ft')) {
+        /* Logo: IntersectionObserver garante que sempre aparece,
+           independente do Lenis/ScrollTrigger. */
+        const ftLogo = document.querySelector('.ft__logo');
+        if (ftLogo) {
+            gsap.set(ftLogo, { autoAlpha: 0 });
+            const logoObserver = new IntersectionObserver(([entry]) => {
+                if (entry.isIntersecting) {
+                    gsap.to(ftLogo, { autoAlpha: 1, duration: 1.2, ease: E });
+                    logoObserver.disconnect();
+                }
+            }, { threshold: 0.1 });
+            logoObserver.observe(ftLogo);
+        }
+
         gsap.timeline({
-            scrollTrigger: { trigger: '.ft', start: 'top 90%' }
+            scrollTrigger: {
+                trigger: '.ft',
+                start: 'top bottom',
+                invalidateOnRefresh: true,
+            }
         })
-        .from('.ft__logo',      { autoAlpha: 0, duration: 1.2, ease: E }, 0)
-        .from('.ft__tagline',   { autoAlpha: 0, duration: 1.0, ease: E }, 0.2)
-        .from('.ft__col-label', { autoAlpha: 0, duration: 1.0, ease: E, stagger: .1 }, 0.2)
-        .from('.ft__links',     { autoAlpha: 0, duration: 1.0, ease: E, stagger: .1 }, 0.4)
-        .from('.ft__copy',      { autoAlpha: 0, duration: 1.0, ease: E }, 0.6);
+        .from('.ft__tagline',   { autoAlpha: 0, duration: 1.0, ease: E }, 0)
+        .from('.ft__col-label', { autoAlpha: 0, duration: 1.0, ease: E, stagger: .1 }, 0.1)
+        .from('.ft__links',     { autoAlpha: 0, duration: 1.0, ease: E, stagger: .1 }, 0.3)
+        .from('.ft__copy',      { autoAlpha: 0, duration: 1.0, ease: E }, 0.5);
     }
 
     /* ── Recalcula posições após imagens lazy carregarem ── */
