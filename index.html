@@ -6,6 +6,22 @@
     <title>José Cunto Neto — Fotografia Artística</title>
     <meta name="description" content="Portfólio de fotografia artística e documental de José Cunto Neto. Cuiabá, Mato Grosso, Brasil." />
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Assets/Imagens/Logo/logo.png" />
+    <link rel="apple-touch-icon" href="Assets/Imagens/Logo/logo.png" />
+
+    <!-- Open Graph / Social sharing -->
+    <!-- Substitua https://seudominio.com.br pelo domínio real antes do deploy -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="José Cunto Neto — Fotografia Artística" />
+    <meta property="og:description" content="Portfólio de fotografia artística e documental. Cuiabá, Mato Grosso, Brasil." />
+    <meta property="og:image"       content="https://seudominio.com.br/Assets/Imagens/Sem Cor/Sem-Título-1.webp" />
+    <meta property="og:locale"      content="pt_BR" />
+    <meta name="twitter:card"       content="summary_large_image" />
+    <meta name="twitter:title"      content="José Cunto Neto — Fotografia Artística" />
+    <meta name="twitter:description" content="Portfólio de fotografia artística e documental. Cuiabá, Mato Grosso, Brasil." />
+    <meta name="twitter:image"      content="https://seudominio.com.br/Assets/Imagens/Sem Cor/Sem-Título-1.webp" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet" />
@@ -13,14 +29,20 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <noscript>
+        <div style="background: #18181b; color: #fafafa; padding: 1rem; text-align: center; position: relative; z-index: 10000; font-family: sans-serif; font-size: 0.8rem;">
+            Este site funciona melhor com JavaScript ativado para navegação, rolagem suave e animações.
+        </div>
+    </noscript>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
     <div class="cursor"      id="js-cursor" aria-hidden="true"></div>
     <div class="cursor-ring" id="js-ring"   aria-hidden="true"></div>
 
     <!-- ── Navigation ────────────────────────────────────────── -->
     <nav class="nav" id="js-nav" role="navigation" aria-label="Navegação principal">
-        <a href="#" class="nav__logo" aria-label="José Cunto Neto — Início">
-            <img src="Assets/Imagens/Logo/logo.png" alt="José Cunto Neto" />
+        <a href="#hero" class="nav__logo" aria-label="José Cunto Neto — Início">
+            <img src="Assets/Imagens/Logo/logo.webp" alt="José Cunto Neto" />
         </a>
         <ul class="nav__list" role="list">
             <li><a href="#portfolio" class="nav__link">Portfólio</a></li>
@@ -44,193 +66,198 @@
         <span class="nav__mobile-meta">Cuiabá · Mato Grosso</span>
     </div>
 
-    <!-- ── Hero ──────────────────────────────────────────────── -->
-    <section class="hero" id="hero" aria-labelledby="hero-name">
+    <main id="main-content">
 
-        <!-- Image 1 — tall portrait, left, behind title -->
-        <figure class="himg himg-1">
-            <img
-                src="Assets/Imagens/Sem Cor/Sem-Título-1.png"
-                alt="Retrato artístico em preto e branco — José Cunto Neto"
-                loading="eager"
-            />
-            <div class="himg__overlay" aria-hidden="true"></div>
-        </figure>
+        <!-- ── Hero ──────────────────────────────────────────────── -->
+        <section class="hero" id="hero" aria-labelledby="hero-name">
 
-        <!-- Title block — single strong word integrated into the composition -->
-        <div class="htitle">
-            <h1 class="htitle__main" id="hero-name">Permanência</h1>
-        </div>
+            <!-- Image 1 — tall portrait, left, behind title -->
+            <figure class="himg himg-1">
+                <img
+                    src="Assets/Imagens/Sem Cor/Sem-Título-1.webp"
+                    alt="Retrato artístico em preto e branco — José Cunto Neto"
+                    loading="eager"
+                />
+                <div class="himg__overlay" aria-hidden="true"></div>
+            </figure>
 
-        <!-- Image 2 — landscape, right, in front of title (editorial overlap) -->
-        <figure class="himg himg-2">
-            <img
-                src="Assets/Imagens/Sem Cor/Sem-Título-5.png"
-                alt="Paisagem documental em preto e branco — José Cunto Neto"
-                loading="eager"
-            />
-            <div class="himg__overlay" aria-hidden="true"></div>
-        </figure>
-
-        <!-- Image 3 — small accent, foreground -->
-        <figure class="himg himg-3">
-            <img
-                src="Assets/Imagens/Sem Cor/Sem-Título-11.png"
-                alt="Fotografia artística em preto e branco — José Cunto Neto"
-                loading="eager"
-            />
-            <div class="himg__overlay" aria-hidden="true"></div>
-        </figure>
-
-        <span class="hyear" aria-hidden="true">Acervo — Cuiabá, MT</span>
-
-        <!-- Bottom row -->
-        <div class="hbottom" aria-hidden="true">
-
-            <div class="hmeta">
-                <p>José Cunto Neto</p>
-                <p>Fotógrafo — Brasil</p>
+            <!-- Title block — single strong word integrated into the composition -->
+            <div class="htitle">
+                <h1 class="htitle__main" id="hero-name">Permanência</h1>
             </div>
 
-            <div class="hcta">
-                <a href="#portfolio" class="hcta__link" aria-label="Ver portfólio completo">
-                    <span>Ver Portfólio</span>
-                    <span class="hcta__arrow" aria-hidden="true">↓</span>
-                </a>
+            <!-- Image 2 — landscape, right, in front of title (editorial overlap) -->
+            <figure class="himg himg-2">
+                <img
+                    src="Assets/Imagens/Sem Cor/Sem-Título-5.webp"
+                    alt="Paisagem documental em preto e branco — José Cunto Neto"
+                    loading="eager"
+                />
+                <div class="himg__overlay" aria-hidden="true"></div>
+            </figure>
+
+            <!-- Image 3 — small accent, foreground -->
+            <figure class="himg himg-3">
+                <img
+                    src="Assets/Imagens/Sem Cor/Sem-Título-11.webp"
+                    alt="Fotografia artística em preto e branco — José Cunto Neto"
+                    loading="eager"
+                />
+                <div class="himg__overlay" aria-hidden="true"></div>
+            </figure>
+
+            <span class="hyear" aria-hidden="true">Acervo — Cuiabá, MT</span>
+
+            <!-- Bottom row -->
+            <div class="hbottom">
+
+                <div class="hmeta" aria-hidden="true">
+                    <p>José Cunto Neto</p>
+                    <p>Fotógrafo — Brasil</p>
+                </div>
+
+                <div class="hcta">
+                    <a href="#portfolio" class="hcta__link" aria-label="Ver portfólio completo">
+                        <span>Ver Portfólio</span>
+                        <span class="hcta__arrow" aria-hidden="true">↓</span>
+                    </a>
+                </div>
+
+                <div class="hscroll" aria-hidden="true">
+                    <span class="hscroll__label">Scroll</span>
+                    <div  class="hscroll__line" id="js-sline"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── Portfolio ────────────────────────────────────────── -->
+        <section class="pf" id="portfolio" aria-label="Portfólio">
+
+            <!-- Header -->
+            <header class="pf-header">
+                <div class="pf-header__inner">
+                    <small class="pf-header__eyebrow">Portfólio — Acervo</small>
+                    <h2 class="pf-header__title">Trabalhos</h2>
+                </div>
+                <p class="pf-header__meta">Cuiabá · Mato Grosso</p>
+            </header>
+
+            <!-- ── Capítulo 01 — Instantes ── -->
+            <div class="pf-chapter" id="pf-c1" aria-label="Capítulo 01: Instantes">
+                <span class="pf-ch__num" aria-hidden="true">01</span>
+                <span class="pf-ch__tag" aria-hidden="true">Instantes</span>
+
+                <figure class="pf-fig pf-fig--1a">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-2.webp"
+                         alt="Retrato artístico I — José Cunto Neto" />
+                </figure>
+                <figure class="pf-fig pf-fig--1b">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-8.webp"
+                         alt="Retrato artístico II — José Cunto Neto" />
+                </figure>
+                <figure class="pf-fig pf-fig--1c">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-14.webp"
+                         alt="Detalhe artístico — José Cunto Neto" />
+                </figure>
             </div>
 
-            <div class="hscroll">
-                <span class="hscroll__label">Scroll</span>
-                <div  class="hscroll__line" id="js-sline"></div>
+            <!-- ── Capítulo 02 — Ausências ── -->
+            <div class="pf-chapter pf-chapter--flip" id="pf-c2" aria-label="Capítulo 02: Ausências">
+                <span class="pf-ch__num" aria-hidden="true">02</span>
+                <span class="pf-ch__tag" aria-hidden="true">Ausências</span>
+
+                <figure class="pf-fig pf-fig--2a">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-6.webp"
+                         alt="Paisagem I — José Cunto Neto" />
+                </figure>
+                <figure class="pf-fig pf-fig--2b">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-12.webp"
+                         alt="Paisagem II — José Cunto Neto" />
+                </figure>
+                <figure class="pf-fig pf-fig--2c">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-17.webp"
+                         alt="Detalhe paisagem — José Cunto Neto" />
+                </figure>
             </div>
 
-        </div>
-    </section>
+            <!-- ── Capítulo 03 — Permanências ── -->
+            <div class="pf-chapter pf-chapter--flip" id="pf-c3" aria-label="Capítulo 03: Permanências">
+                <span class="pf-ch__num" aria-hidden="true">03</span>
+                <span class="pf-ch__tag" aria-hidden="true">Permanências</span>
 
-    <!-- ── Portfolio ────────────────────────────────────────── -->
-    <section class="pf" id="portfolio" aria-label="Portfólio">
-
-        <!-- Header -->
-        <header class="pf-header">
-            <div class="pf-header__inner">
-                <small class="pf-header__eyebrow">Portfólio — Acervo</small>
-                <h2 class="pf-header__title">Trabalhos</h2>
-            </div>
-            <p class="pf-header__meta">Cuiabá · Mato Grosso</p>
-        </header>
-
-        <!-- ── Capítulo 01 — Retratos ── -->
-        <div class="pf-chapter" id="pf-c1" aria-label="Capítulo 01: Retratos">
-            <span class="pf-ch__num" aria-hidden="true">01</span>
-            <span class="pf-ch__tag" aria-hidden="true">Instantes</span>
-
-            <figure class="pf-fig pf-fig--1a">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-2.png"
-                     alt="Retrato artístico I — José Cunto Neto" />
-            </figure>
-            <figure class="pf-fig pf-fig--1b">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-8.png"
-                     alt="Retrato artístico II — José Cunto Neto" />
-            </figure>
-            <figure class="pf-fig pf-fig--1c">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-14.png"
-                     alt="Detalhe artístico — José Cunto Neto" />
-            </figure>
-        </div>
-
-        <!-- ── Capítulo 02 — Paisagem ── -->
-        <div class="pf-chapter pf-chapter--flip" id="pf-c2" aria-label="Capítulo 02: Paisagem">
-            <span class="pf-ch__num" aria-hidden="true">02</span>
-            <span class="pf-ch__tag" aria-hidden="true">Ausências</span>
-
-            <figure class="pf-fig pf-fig--2a">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-6.png"
-                     alt="Paisagem I — José Cunto Neto" />
-            </figure>
-            <figure class="pf-fig pf-fig--2b">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-12.png"
-                     alt="Paisagem II — José Cunto Neto" />
-            </figure>
-            <figure class="pf-fig pf-fig--2c">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-17.png"
-                     alt="Detalhe paisagem — José Cunto Neto" />
-            </figure>
-        </div>
-
-        <!-- ── Capítulo 03 — Série ── -->
-        <div class="pf-chapter pf-chapter--flip" id="pf-c3" aria-label="Capítulo 03: Série">
-            <span class="pf-ch__num" aria-hidden="true">03</span>
-            <span class="pf-ch__tag" aria-hidden="true">Permanências</span>
-
-            <figure class="pf-fig pf-fig--2a">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-3.png"
-                     alt="Série fotográfica I — José Cunto Neto" />
-            </figure>
-            <figure class="pf-fig pf-fig--2b">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-9.png"
-                     alt="Série fotográfica II — José Cunto Neto" />
-            </figure>
-            <figure class="pf-fig pf-fig--2c">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-20.png"
-                     alt="Detalhe da série — José Cunto Neto" />
-            </figure>
-        </div>
-
-        <!-- ── Capítulo 04 — Acervo ── -->
-        <div class="pf-chapter pf-chapter--last" id="pf-c4" aria-label="Capítulo 04: Acervo">
-            <span class="pf-ch__num" aria-hidden="true">04</span>
-            <span class="pf-ch__tag" aria-hidden="true">Fragmentos</span>
-
-            <figure class="pf-fig pf-fig--3a">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-4.png"
-                     alt="Acervo I — José Cunto Neto" />
-            </figure>
-            <figure class="pf-fig pf-fig--3b">
-                <img src="Assets/Imagens/Sem Cor/Sem-Título-16.png"
-                     alt="Acervo II — José Cunto Neto" />
-            </figure>
-        </div>
-
-    </section>
-
-    <!-- ── Sobre o Fotógrafo ─────────────────────────────────── -->
-    <section class="ab" id="sobre" aria-labelledby="ab-name">
-
-        <span class="ab__tag" aria-hidden="true">O Fotógrafo</span>
-
-        <figure class="ab__fig">
-            <img
-                src="Assets/Imagens/Cunto/neto.png"
-                alt="José Cunto Neto — Fotógrafo artístico, Cuiabá"
-            />
-            <div class="ab__fig-overlay" aria-hidden="true"></div>
-        </figure>
-
-        <div class="ab__content">
-
-            <small class="ab__eyebrow">Sobre — O Artista</small>
-
-            <h2 class="ab__title" id="ab-name">
-                <span class="ab__title-first">José</span>
-                <span class="ab__title-last">Cunto Neto</span>
-            </h2>
-
-            <div class="ab__bio">
-                <p>Nascido em Cuiabá, José Cunto Neto encontrou na fotografia a linguagem capaz de traduzir o que as palavras não alcançam. Com um olhar simultaneamente documental e poético, suas imagens transitam entre o íntimo e o universal — entre o que permanece e o que escapa.</p>
-                <p>Ao longo de sua trajetória, construiu um vocabulário visual próprio: sensível à luz, ao silêncio e à presença humana. Cada fotografia é uma pausa — um convite a enxergar o ordinário com profundidade extraordinária.</p>
+                <figure class="pf-fig pf-fig--3a">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-3.webp"
+                         alt="Série fotográfica I — José Cunto Neto" />
+                </figure>
+                <figure class="pf-fig pf-fig--3b">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-9.webp"
+                         alt="Série fotográfica II — José Cunto Neto" />
+                </figure>
+                <figure class="pf-fig pf-fig--3c">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-20.webp"
+                         alt="Detalhe da série — José Cunto Neto" />
+                </figure>
             </div>
 
-            <div class="ab__footer">
-                <span class="ab__location">Cuiabá · Mato Grosso</span>
-                <a href="https://wa.me/5565981192222?text=Olá%2C%20vim%20pelo%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20trabalho." class="ab__cta" target="_blank" rel="noopener noreferrer" aria-label="Entrar em contato com José Cunto Neto pelo WhatsApp">
-                    <span>Trabalhe Comigo</span>
-                    <span class="ab__cta-arrow" aria-hidden="true">→</span>
-                </a>
+            <!-- ── Capítulo 04 — Fragmentos ── -->
+            <div class="pf-chapter pf-chapter--last" id="pf-c4" aria-label="Capítulo 04: Fragmentos">
+                <span class="pf-ch__num" aria-hidden="true">04</span>
+                <span class="pf-ch__tag" aria-hidden="true">Fragmentos</span>
+
+                <figure class="pf-fig pf-fig--4a">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-4.webp"
+                         alt="Acervo I — José Cunto Neto" />
+                </figure>
+                <figure class="pf-fig pf-fig--4b">
+                    <img loading="lazy" src="Assets/Imagens/Sem Cor/Sem-Título-16.webp"
+                         alt="Acervo II — José Cunto Neto" />
+                </figure>
             </div>
 
-        </div>
+        </section>
 
-    </section>
+        <!-- ── Sobre o Fotógrafo ─────────────────────────────────── -->
+        <section class="ab" id="sobre" aria-labelledby="ab-name">
+
+            <span class="ab__num" aria-hidden="true">05</span>
+            <span class="ab__tag" aria-hidden="true">O Fotógrafo</span>
+
+            <figure class="ab__fig">
+                <img
+                    src="Assets/Imagens/Cunto/neto.webp"
+                    alt="José Cunto Neto — Fotógrafo artístico, Cuiabá"
+                />
+                <div class="ab__fig-overlay" aria-hidden="true"></div>
+            </figure>
+
+            <div class="ab__content">
+
+                <small class="ab__eyebrow">Sobre — O Artista</small>
+
+                <h2 class="ab__title" id="ab-name">
+                    <span class="ab__title-first">José</span>
+                    <span class="ab__title-last">Cunto Neto</span>
+                </h2>
+
+                <div class="ab__bio">
+                    <p>Nascido em Cuiabá, José Cunto Neto encontrou na fotografia a linguagem capaz de traduzir o que as palavras não alcançam. Com um olhar simultaneamente documental e poético, suas imagens transitam entre o íntimo e o universal, entre o que permanece e o que escapa.</p>
+                    <p>Ao longo de sua trajetória, construiu um vocabulário visual próprio: sensível à luz, ao silêncio e à presença humana. Cada fotografia é uma pausa, um convite a enxergar o ordinário com profundidade extraordinária.</p>
+                </div>
+
+                <div class="ab__footer">
+                    <span class="ab__location">Cuiabá · Mato Grosso</span>
+                    <a href="https://wa.me/5565981192222?text=Olá%2C%20vim%20pelo%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20trabalho." class="ab__cta" target="_blank" rel="noopener noreferrer" aria-label="Entrar em contato com José Cunto Neto pelo WhatsApp">
+                        <span>Trabalhe Comigo</span>
+                        <span class="ab__cta-arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
 
     <!-- ── Footer / Contato ──────────────────────────────── -->
     <footer class="ft" id="contato" aria-label="Rodapé e contato">
@@ -238,60 +265,59 @@
         <div class="ft__top">
 
             <div class="ft__col ft__col--name">
-                <a href="#" class="ft__logo" aria-label="José Cunto Neto — Início">
-                    <img src="Assets/Imagens/Logo/logoCinza.png" alt="José Cunto Neto" />
+                <a href="#hero" class="ft__logo" aria-label="José Cunto Neto — Início">
+                    <img src="Assets/Imagens/Logo/logoCinza.webp" alt="José Cunto Neto" />
                 </a>
                 <p class="ft__tagline">Fotografia artística e documental<br/>Cuiabá · Mato Grosso · Brasil</p>
             </div>
 
-            <div class="ft__col ft__col--wpp">
-                <span class="ft__col-label">WhatsApp</span>
-                <div class="ft__social">
-                    <a href="https://wa.me/5565981192222"
-                       class="ft__social-link"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       aria-label="Conversar pelo WhatsApp: (65) 98119-2222">
-                        <span class="ft__social-platform">WhatsApp</span>
-                        <span class="ft__social-handle">(65) 98119-2222</span>
-                    </a>
-                </div>
+            <div class="ft__col ft__col--nav">
+                <span class="ft__col-label">Navegação</span>
+                <nav class="ft__links" aria-label="Links de navegação">
+                    <a href="#hero"          class="ft__link">Início</a>
+                    <a href="#portfolio" class="ft__link">Portfólio</a>
+                    <a href="#sobre"     class="ft__link">Sobre</a>
+                    <a href="#contato"   class="ft__link">Contato</a>
+                </nav>
             </div>
 
-            <div class="ft__col ft__col--social">
-                <span class="ft__col-label">Redes Sociais</span>
-                <div class="ft__social">
+            <div class="ft__col ft__col--contact">
+                <span class="ft__col-label">Contato</span>
+                <nav class="ft__links" aria-label="Links de contato">
+                    <a href="https://wa.me/5565981192222?text=Olá%2C%20vim%20pelo%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20trabalho."
+                       class="ft__link"
+                       target="_blank"
+                       rel="noopener noreferrer">WhatsApp</a>
                     <a href="https://www.instagram.com/cuntoneto"
-                       class="ft__social-link"
+                       class="ft__link"
                        target="_blank"
-                       rel="noopener noreferrer"
-                       aria-label="Instagram de José Cunto Neto">
-                        <span class="ft__social-platform">Instagram</span>
-                        <span class="ft__social-handle">@cuntoneto</span>
-                    </a>
+                       rel="noopener noreferrer">Instagram</a>
                     <a href="https://www.facebook.com/cunto.neto"
-                       class="ft__social-link"
+                       class="ft__link"
                        target="_blank"
-                       rel="noopener noreferrer"
-                       aria-label="Facebook de José Cunto Neto">
-                        <span class="ft__social-platform">Facebook</span>
-                        <span class="ft__social-handle">/cunto.neto</span>
-                    </a>
-                </div>
+                       rel="noopener noreferrer">Facebook</a>
+                </nav>
             </div>
 
         </div>
 
         <div class="ft__bottom">
             <span class="ft__copy">© 2026 — Todos os direitos reservados</span>
+            <span class="ft__credit">Desenvolvido por <a href="https://www.instagram.com/neuragain?igsh=bWt2NHRrZG11bjZn" target="_blank" rel="noopener noreferrer" class="ft__credit-link">neura</a></span>
         </div>
 
     </footer>
 
     <!-- ── Libraries ─────────────────────────────────────────── -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+            integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+            integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"
+            integrity="sha384-li4UtcFCH6QeUqR4JyV58/VgTprMuz9aauj+oWtew7V4Y7ZVjnvz5px9Y3UCG0Ea"
+            crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -4,9 +4,17 @@
     /* ── GSAP ───────────────────────────────────────────── */
     gsap.registerPlugin(ScrollTrigger);
 
+    /* ── Acessibilidade: Prefers Reduced Motion ─────────── */
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        // Acelera as animações para serem quase instantâneas
+        gsap.globalTimeline.timeScale(999);
+    }
+
     /* ── Lenis + GSAP integration ───────────────────────── */
     const lenis = new Lenis({
-        duration: 1.4,
+        duration: prefersReducedMotion ? 0 : 1.4,
+        smoothWheel: !prefersReducedMotion,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
@@ -275,11 +283,11 @@
         gsap.timeline({
             scrollTrigger: { trigger: '.ft', start: 'top 90%' }
         })
-        .from('.ft__logo',      { autoAlpha: 0,        duration: 1.2, ease: E }, 0)
-        .from('.ft__tagline',   { autoAlpha: 0,        duration: 1.0, ease: E }, 0.2)
-        .from('.ft__col-label', { autoAlpha: 0,        duration: 1.0, ease: E, stagger: .08 }, 0.2)
-        .from('.ft__social',    { autoAlpha: 0,        duration: 1.0, ease: E }, 0.4)
-        .from('.ft__copy',      { autoAlpha: 0,        duration: 1.0, ease: E }, 0.6);
+        .from('.ft__logo',      { autoAlpha: 0, duration: 1.2, ease: E }, 0)
+        .from('.ft__tagline',   { autoAlpha: 0, duration: 1.0, ease: E }, 0.2)
+        .from('.ft__col-label', { autoAlpha: 0, duration: 1.0, ease: E, stagger: .1 }, 0.2)
+        .from('.ft__links',     { autoAlpha: 0, duration: 1.0, ease: E, stagger: .1 }, 0.4)
+        .from('.ft__copy',      { autoAlpha: 0, duration: 1.0, ease: E }, 0.6);
     }
 
 }());

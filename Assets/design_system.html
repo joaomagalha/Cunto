@@ -18,7 +18,7 @@
             --ink-mid:    #71717a;
             --ink-light:  #a1a1aa;
             --ink-xlight: #d4d4d8;
-            --bg:         #ffffff;
+            --bg:         #fafafa;
 
             --expo: cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -279,13 +279,25 @@
         }
         .preview-nav__link {
             font-size: .6875rem;
-            font-weight: 500;
+            font-weight: 400;
             letter-spacing: .12em;
             text-transform: uppercase;
-            color: var(--ink);
-            transition: opacity .3s var(--expo);
+            color: var(--ink-mid);
+            position: relative;
+            transition: color .3s;
         }
-        .preview-nav__link:hover { opacity: .5; }
+        .preview-nav__link::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -3px;
+            width: 100%; height: 1px;
+            background: var(--ink);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform .4s var(--expo);
+        }
+        .preview-nav__link:hover { color: var(--ink); }
+        .preview-nav__link:hover::after { transform: scaleX(1); transform-origin: left; }
 
         /* — CTA Button — */
         .preview-cta-link {
@@ -410,29 +422,35 @@
 
         /* — Mobile menu — */
         .preview-mobile-menu {
-            background: var(--ink);
-            padding: 4rem 2.5rem;
+            background: rgba(250, 250, 250, .97);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            padding: 4rem 2rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 2.5rem;
+            gap: 0;
         }
         .preview-mobile-link {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            font-weight: 700;
+            display: block;
+            font-size: clamp(2.5rem, 12vw, 4rem);
+            font-weight: 300;
             letter-spacing: -.04em;
-            color: var(--bg);
-            line-height: 1;
-            transition: opacity .3s var(--expo);
+            line-height: 1.2;
+            color: var(--ink);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--ink-xlight);
+            transition: color .3s var(--expo);
         }
-        .preview-mobile-link:hover { opacity: .4; }
+        .preview-mobile-link:first-child { border-top: 1px solid var(--ink-xlight); }
+        .preview-mobile-link:hover { color: var(--ink-mid); }
         .preview-mobile-meta {
-            font-size: .5625rem;
+            font-size: .6875rem;
             font-weight: 400;
-            letter-spacing: .2em;
+            letter-spacing: .18em;
             text-transform: uppercase;
             color: var(--ink-light);
-            margin-top: 1rem;
+            margin-top: 3rem;
         }
 
         /* ═══════════════════════════════════════════════════
@@ -504,8 +522,8 @@
             <div style="display:flex; align-items:baseline; justify-content:space-between; padding-bottom:2rem; border-bottom:1px solid var(--ink-xlight); margin-bottom:2rem;">
                 <h1 style="font-size:clamp(3rem,6vw,5rem); font-weight:700; letter-spacing:-.055em; line-height:.88; color:var(--ink);">José Cunto Neto<br/>Design System</h1>
                 <div style="text-align:right;">
-                    <p class="mono">Versão 2.0</p>
-                    <p class="ds-note">Atualizado em 2026-06-24</p>
+                    <p class="mono">Versão 2.1</p>
+                    <p class="ds-note">Atualizado em 2026-06-26</p>
                     <p class="ds-note">Fonte: index.html + style.css</p>
                 </div>
             </div>
@@ -557,18 +575,18 @@
                 </div>
 
                 <div class="color-chip">
-                    <div class="color-chip__swatch" style="background:#ffffff; border:1px solid #ebebeb;"></div>
+                    <div class="color-chip__swatch" style="background:#fafafa; border:1px solid #ebebeb;"></div>
                     <span class="color-chip__name">Background</span>
                     <span class="color-chip__var">--bg</span>
-                    <span class="color-chip__hex">#ffffff · rgb(255, 255, 255)</span>
-                    <p class="color-chip__usage">Fundo da página, texto sobre fundos escuros (menu mobile, CTA hover), fill do nav scrolled</p>
+                    <span class="color-chip__hex">#fafafa · rgb(250, 250, 250)</span>
+                    <p class="color-chip__usage">Fundo da página, texto sobre fundos escuros (CTA hover), fill do nav scrolled</p>
                 </div>
 
                 <div class="color-chip" style="background:var(--ink);">
-                    <div class="color-chip__swatch" style="background:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.2);"></div>
+                    <div class="color-chip__swatch" style="background:rgba(250,250,250,.88); border:1px solid rgba(255,255,255,.2);"></div>
                     <span class="color-chip__name" style="color:var(--bg);">Nav Blur</span>
-                    <span class="color-chip__var" style="color:var(--ink-light);">rgba(255,255,255,.85)</span>
-                    <span class="color-chip__hex" style="color:var(--ink-light);">+ backdrop-filter: blur(12px)</span>
+                    <span class="color-chip__var" style="color:var(--ink-light);">rgba(250,250,250,.88)</span>
+                    <span class="color-chip__hex" style="color:var(--ink-light);">+ backdrop-filter: blur(24px) saturate(1.4)</span>
                     <p class="color-chip__usage" style="color:var(--ink-light);">Fundo da navegação no estado .scrolled — nunca usar sem backdrop-filter</p>
                 </div>
 
@@ -636,9 +654,9 @@
                 <div class="type-row">
                     <div class="type-row__meta">
                         <span class="type-row__label">Mobile Nav Links</span>
-                        <span class="type-row__spec">clamp(2.5rem, 12vw, 5rem)<br/>weight 700<br/>tracking -.04em<br/>line-height 1.05</span>
+                        <span class="type-row__spec">clamp(2.5rem, 12vw, 4rem)<br/>weight 300<br/>tracking -.04em<br/>line-height 1.2</span>
                     </div>
-                    <div class="type-row__sample" style="font-size:clamp(1.75rem, 5vw, 3rem); font-weight:700; letter-spacing:-.04em; line-height:1.05; color:var(--ink);">Portfólio</div>
+                    <div class="type-row__sample" style="font-size:clamp(1.75rem, 5vw, 3rem); font-weight:300; letter-spacing:-.04em; line-height:1.2; color:var(--ink);">Portfólio</div>
                 </div>
 
                 <div class="type-row">
@@ -751,12 +769,7 @@
                     <div class="space-row">
                         <span class="space-row__label">8rem / 128px</span>
                         <div class="space-row__bar" style="width:8rem;"></div>
-                        <span class="space-row__value">pf-header padding-top desktop, pf-chapter margin-bottom</span>
-                    </div>
-                    <div class="space-row">
-                        <span class="space-row__label">16rem / 256px</span>
-                        <div class="space-row__bar" style="width:16rem;"></div>
-                        <span class="space-row__value">pf-chapter--last margin-bottom</span>
+                        <span class="space-row__value">pf-header padding-top desktop, pf-chapter--last margin-bottom</span>
                     </div>
                 </div>
             </div>
@@ -925,7 +938,7 @@
                     </thead>
                     <tbody>
                         <tr><td>nav__logo</td><td>opacity</td><td>1 → 0.6</td><td>0.3s --expo</td></tr>
-                        <tr><td>nav__link</td><td>opacity</td><td>1 → 0.5</td><td>0.3s --expo</td></tr>
+                        <tr><td>nav__link</td><td>color + ::after scaleX</td><td>ink-mid → ink / 0 → 1 (sublinhado)</td><td>0.3s color / 0.4s --expo scaleX</td></tr>
                         <tr><td>hcta__link</td><td>color + border + ::before opacity</td><td>ink-mid → bg / transparent → ink / 0 → 1</td><td>0.42–0.44s --expo</td></tr>
                         <tr><td>hcta__arrow</td><td>translateY</td><td>0 → 4px</td><td>0.4s --expo</td></tr>
                         <tr><td>himg (hero + pf)</td><td>__overlay opacity</td><td>0 → 0–1 (varia)</td><td>0.6s --expo</td></tr>
@@ -958,10 +971,10 @@
                 </div>
                 <div style="padding:1.5rem 2rem; border-top:1px solid var(--ink-xlight); background:var(--bg);">
                     <p class="ds-note">
-                        position: fixed · z-index: 200 · height: 4rem · padding: 0 3.5rem<br/>
-                        Estado .scrolled: background rgba(255,255,255,.85) + backdrop-filter: blur(12px) + border-bottom 1px ink-xlight<br/>
-                        Logo: &lt;a class="nav__logo"&gt;&lt;img&gt;&lt;/a&gt; — height 2rem / width 8rem / object-fit contain<br/>
-                        Links: .6875rem · w500 · tracking .12em · uppercase · opacity .5 no hover
+                        position: fixed · z-index: 200 · padding: 2rem 3.5rem (repouso) → 1.5rem 3.5rem (scrolled) — transição .6s --expo<br/>
+                        Estado .scrolled: background rgba(250,250,250,.88) + backdrop-filter: blur(24px) saturate(1.4) + border-bottom rgba(24,24,27,.06) — ativa em scrollY &gt; 60px<br/>
+                        Logo: &lt;a class="nav__logo"&gt;&lt;img&gt;&lt;/a&gt; — height 2rem / width 8rem / object-fit contain / opacity .6 no hover<br/>
+                        Links: .6875rem · w400 · tracking .12em · uppercase · cor ink-mid → ink no hover + sublinhado scaleX --expo
                     </p>
                 </div>
             </div>
@@ -1092,11 +1105,12 @@
                 </div>
                 <div style="padding:1.5rem 2rem; border-top:1px solid var(--ink-xlight);">
                     <p class="ds-note">
-                        position: fixed · inset 0 · z-index: 201 · background: --ink<br/>
-                        Entrada: clip-path inset(0 0 100% 0) → inset(0 0 0% 0) em .7s --expo<br/>
-                        Links: clamp(2.5rem, 12vw, 5rem) · w700 · tracking -.04em · color --bg<br/>
-                        Aparecem com opacity + translateY stagger via CSS transition + .is-open<br/>
-                        Meta: .5625rem · w400 · tracking .2em · uppercase · color --ink-light
+                        position: fixed · inset 0 · z-index: 199 · background: rgba(250,250,250,.97) + backdrop-filter: blur(24px) saturate(1.4)<br/>
+                        Entrada: opacity 0 → 1 em .5s --expo via classe .is-open (transition em CSS)<br/>
+                        Links: clamp(2.5rem, 12vw, 4rem) · w300 · tracking -.04em · color --ink → --ink-mid no hover<br/>
+                        Cada link tem border-bottom 1px --ink-xlight; primeiro item tem border-top também<br/>
+                        Aparecem com opacity + translateY(16px) stagger via CSS transition-delay + .is-open<br/>
+                        Meta: .6875rem · w400 · tracking .18em · uppercase · color --ink-light
                     </p>
                 </div>
             </div>
@@ -1120,8 +1134,9 @@
                     <tbody>
                         <tr><td>Cursor dot</td><td>.cursor</td><td>9999</td><td>sempre no topo absoluto</td></tr>
                         <tr><td>Cursor ring</td><td>.cursor-ring</td><td>9998</td><td>abaixo do dot</td></tr>
-                        <tr><td>Mobile menu</td><td>.nav__mobile</td><td>201</td><td>sobre a nav</td></tr>
+                        <tr><td>Burger (X)</td><td>.nav__burger</td><td>201</td><td>acima de tudo quando menu aberto</td></tr>
                         <tr><td>Navegação</td><td>.nav</td><td>200</td><td>fixa, sobre o hero</td></tr>
+                        <tr><td>Mobile menu</td><td>.nav__mobile</td><td>199</td><td>abaixo da nav — barra permanece visível</td></tr>
                         <tr><td>hyear label</td><td>.hyear</td><td>199</td><td>abaixo da nav</td></tr>
                         <tr><td>Chapter labels</td><td>.pf-ch__num / .pf-ch__tag</td><td>20</td><td>sobre imagens do portfólio</td></tr>
                         <tr><td>Hero title</td><td>.htitle</td><td>2</td><td>sobre imagens do hero</td></tr>
@@ -1188,7 +1203,7 @@
     <!-- DS Footer -->
     <footer style="background:var(--ink); padding:2rem 3rem; display:flex; align-items:center; justify-content:space-between;">
         <span style="font-size:.5rem; font-weight:500; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-light);">José Cunto Neto — Design System</span>
-        <span style="font-size:.5rem; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-mid);">v2.0 · 2026</span>
+        <span style="font-size:.5rem; font-weight:400; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-mid);">v2.1 · 2026</span>
     </footer>
 
 </body>
