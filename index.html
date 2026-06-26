@@ -10,6 +10,9 @@
     <link rel="icon" type="image/png" href="Assets/Imagens/Logo/logo.png" />
     <link rel="apple-touch-icon" href="Assets/Imagens/Logo/logo.png" />
 
+    <!-- Preload logo do nav (crítico — aparece no topo da página) -->
+    <link rel="preload" as="image" href="Assets/Imagens/Logo/logo.webp" type="image/webp" />
+
     <!-- Open Graph / Social sharing -->
     <!-- Substitua https://seudominio.com.br pelo domínio real antes do deploy -->
     <meta property="og:type"        content="website" />
@@ -42,7 +45,7 @@
     <!-- ── Navigation ────────────────────────────────────────── -->
     <nav class="nav" id="js-nav" role="navigation" aria-label="Navegação principal">
         <a href="#hero" class="nav__logo" aria-label="José Cunto Neto — Início">
-            <img src="Assets/Imagens/Logo/logo.webp" alt="José Cunto Neto" />
+            <img src="Assets/Imagens/Logo/logo.webp" alt="José Cunto Neto" fetchpriority="high" />
         </a>
         <ul class="nav__list" role="list">
             <li><a href="#portfolio" class="nav__link">Portfólio</a></li>
@@ -266,7 +269,7 @@
 
             <div class="ft__col ft__col--name">
                 <a href="#hero" class="ft__logo" aria-label="José Cunto Neto — Início">
-                    <img src="Assets/Imagens/Logo/logoCinza.webp" alt="José Cunto Neto" />
+                    <img src="Assets/Imagens/Logo/logoCinza.webp" alt="José Cunto Neto" loading="lazy" />
                 </a>
                 <p class="ft__tagline">Fotografia artística e documental<br/>Cuiabá · Mato Grosso · Brasil</p>
             </div>
