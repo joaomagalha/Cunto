@@ -290,4 +290,7 @@
         .from('.ft__copy',      { autoAlpha: 0, duration: 1.0, ease: E }, 0.6);
     }
 
+    /* ── Recalcula posições após imagens lazy carregarem ── */
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+
 }());
