@@ -438,9 +438,9 @@ body.on-dark.on-link .cursor-ring   { width: 52px; height: 52px; background: rgb
     .htitle { display: none; }
 
     /* Mobile — full reimagination, not just stacking */
-    .himg-1 { top: 16vh; left: 0;    right: auto; bottom: auto; width: 62vw; height: 36vh; z-index: 1; }
-    .himg-2 { top: 54vh; left: 0;    right: auto; bottom: auto; width: 62vw; height: 31vh; z-index: 1; }
-    .himg-3 { top: 39vh; left: auto; right: 0;    bottom: auto; width: 62vw; height: 36vh; z-index: 1; }
+    .himg-1 { top: 16dvh; left: 0;    right: auto; bottom: auto; width: 62vw; height: 34dvh; z-index: 1; }
+    .himg-2 { top: 52dvh; left: 0;    right: auto; bottom: auto; width: 62vw; height: 28dvh; z-index: 1; }
+    .himg-3 { top: 39dvh; left: auto; right: 0;    bottom: auto; width: 62vw; height: 34dvh; z-index: 1; }
 
     /* Bottom bar — simple and clean like desktop */
     .hero    { overflow: hidden; height: 100vh; height: 100dvh; }
